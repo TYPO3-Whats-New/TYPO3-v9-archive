@@ -1,0 +1,227 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Changes for Developers" (Dutch Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		846d40ce-66fdc2ec-750dcf95-33ce93e0
+% LTXE-CHAPTER-NAME:	Changes for Developers
+% ------------------------------------------------------------------------------
+
+\section{Wijzigingen voor ontwikkelaars}
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+
+	\begin{center}\huge{Hoofdstuk 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Wijzigingen voor ontwikkelaars}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		030ae153-ae8285a9-26aac067-e021ac81
+% LTXE-SLIDE-ORIGIN:	d71432e3-7bb8957c-e2bb6e80-bc8b8c9b English
+% LTXE-SLIDE-TITLE:		Add recursive filtering of arrays
+% LTXE-SLIDE-REFERENCE:	83350-AddRecursiveArrayFiltering
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+	\framesubtitle{\texttt{filterRecursive()}}
+
+	\begin{itemize}
+		\item Klasse
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Core\textbackslash
+				Utility\textbackslash
+				ArrayUtility}\newline
+			heeft een nieuwe functie om multidemensionale array's the filteren:\newline
+			\texttt{filterRecursive()}
+		\item De functie werkt net zoals de PHP functie \texttt{array\_filter()}\newline
+			\small
+				\href{https://php.net/manual/en/function.array-filter.php}{https://php.net/manual/en/function.array-filter.php}
+			\normalsize
+		\item Als geen callback is opgegeven dan worden waardes verwijderd als ze gelijk zijn aan de boolean waarde "\texttt{false}"
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		7bd97428-6bf83082-4a5a1daa-132f9fe8
+% LTXE-SLIDE-ORIGIN:	15e90c1f-404b54ef-34ea893a-a0caa659 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (1)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+	\framesubtitle{Functieschakelaars (1)}
+
+	\begin{itemize}
+		\item Een nieuwe API \textbf{Functieschakelaars} is toegevoegd
+		\item Het doel van deze API is om alternatieve functies beter te ondersteunen,
+			terwijl de oude beschikbaar blijven
+		\item De API controleert een optie in de globale array \newline
+			\small
+				\texttt{\$TYPO3\_CONF\_VARS['SYS']['features']}
+			\normalsize
+		\item Zowel de TYPO3 core als extensies kunnen dan de alternatieve functionaliteit voor een functie bieden
+		\item Typische voorbeelden voor het gebruik:
+			\smaller
+			\begin{itemize}
+				\item Produceer exceptions in sommige gevallen in plaats van
+					een tekst of foutmelding terug te geven.
+				\item Schakel oude functionaliteit, die misschien gebruikt wordt, uit omdat\newline
+					het systeem trager wordt.
+				\item Schakel alternatieve PageNotFound afhandeling in voor een installatie.
+			\end{itemize}
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		808c64bd-31e2bc2e-a4585b41-74f44597
+% LTXE-SLIDE-ORIGIN:	01a0a341-376f611a-ab4b764e-4ff86727 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (2)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+	\framesubtitle{Functieschakelaars (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+
+		\item Functies zijn gedocumenteerd voor de TYPO3 core\newline
+			\small
+				(link toevoegen)
+			\normalsize
+
+		\item Extensieschrijvers kunnen de API gebruiken voor elke maatwerkfunctie van
+			de extensie:
+
+			\begin{lstlisting}
+				if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('mijnFunctienaam')) {
+				  // maatwerk afhandeling
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		82101bf0-8baf8ce6-d71d0859-4958bc8b
+% LTXE-SLIDE-ORIGIN:	865e2894-3ce87c06-0f92cc8b-b880318e English
+% LTXE-SLIDE-TITLE:		Additional Hook For Record List
+% LTXE-SLIDE-REFERENCE:	61170-AddAdditionalHookForRecordList
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+	\framesubtitle{"Draw Header" Hook}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Een nieuwe hook is toegevoegd aan \texttt{EXT:recordlist}
+			om content boven alle andere content af te beelden
+
+		\item Hook registreren:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']
+				  ['drawHeaderHook']['sys_note'] = \Vendor\Extkey\Hooks\PageHook::class . '->render';
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09b756dd-a92b9a9d-39c5b484-9ef98cd8
+% LTXE-SLIDE-ORIGIN:	40b574bb-9f828b9d-cecafb06-096f4f29 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (1)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+	\framesubtitle{Hook bij aanmelden BE gebruiker (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Bij het aanmelden van een backendgebruiker worden geregistreede hooks uitgevoerd
+		\item Hiermee kunnen TYPO3 ontwikkelaars functies maken die
+			\textit{iets} kunnen doen als een BE gebruiker zich aanmeldt
+
+		\item Er kunnen bijvoorbeeld meldingen verstuurd worden:
+
+			\begin{itemize}
+				\item Plaats een bericht in Slack of een ander berichtensysteem.
+				\item Stuur een SMS naar de mobiel van de gebruiker.
+				\item Stuur een melding naar een systeem om verdachte activiteiten te monitoren.
+				\item etc.
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		d8557e9f-4190ea09-ba06f4cd-574391a8
+% LTXE-SLIDE-ORIGIN:	8ab4904f-865ba977-d1d3cbd0-ff9b3797 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (2)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Wijzigingen voor ontwikkelaars}
+	\framesubtitle{Hook bij aanmelden BE gebruiker (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Hook registreren:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_userauthgroup.php']
+				  ['backendUserLogin'][] = \Vendor\Extkey\Hooks\BackendUserLogin::class . '->dispatch';
+			\end{lstlisting}
+
+		\item Dit voert de functie \texttt{dispatch()} uit als een BE gebruiker zich aanmeldt en stuurt
+			de gebruikersarray als parameter door naar de functie:
+
+			\begin{lstlisting}
+				public function dispatch($backendUser)
+				{
+				  if (isset($backendUser['user']['username'])) {
+				    $username = $backendUser['user']['username'];
+				    $email = $backendUser['user']['email'];
+				    // doe iets...
+				  }
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

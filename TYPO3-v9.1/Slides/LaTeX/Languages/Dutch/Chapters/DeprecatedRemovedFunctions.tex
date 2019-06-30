@@ -1,0 +1,130 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Deprecated Functions" (Dutch Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		3f842373-9262b8d3-f9c8de76-cf29ce17
+% LTXE-CHAPTER-NAME:	Deprecated Functions
+% ------------------------------------------------------------------------------
+
+\section{Verouderde/verwijderde functies}
+\begin{frame}[fragile]
+	\frametitle{Verouderde/verwijderde functies}
+
+	\begin{center}\huge{Hoofdstuk 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Verouderde/verwijderde functies}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		4a362726-38cd8676-1b55976a-6de4e540
+% LTXE-SLIDE-ORIGIN:	02a34a6e-add942aa-76ed434c-5651d314 English
+% LTXE-SLIDE-TITLE:		Deprecated Usage of EXT:rsaauth
+% LTXE-SLIDE-REFERENCE:	Deprecation-81852-DeprecatedUsageOfEXTrsaauth.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Verouderde/verwijderde functies}
+	\framesubtitle{\texttt{EXT:rsaauth}}
+
+	\begin{itemize}
+		\item Extensie \texttt{EXT:rsaauth} is als \textbf{verouderd} aangemerkt.
+		\item Door de toenemende acceptatie van SSL/TLS wordt de technologie van de extensie niet meer
+			gezien als "veilig":
+
+			\begin{itemize}
+				\item Alleen het wachtwoord wordt versleuteld verstuurd
+				\item Uitwisseling van de sleutel tussen server en browser is niet geauthentiseerd
+					(man-in-the-middle aanval mogelijk)
+				\item Sessie-ID's wordt onversleuteld verstuurd, maar zijn bijna net zo waardevol als
+					wachtwoorden
+			\end{itemize}
+
+		\item Gebruik een beveiligde verbinding (HTTPS) in plaats hiervan en versleutel \underline{alle data}
+			die tussen browser en server (TYPO3 frontend en backend) verstuurd wordt.
+
+	\end{itemize}
+
+	\smaller
+		\textbf{NB: moderne browsers waarschuwen waneer gegevens onversleuteld verstuurd
+			worden - niet alleen wachtwoorden of creditcard-gegevens.}
+	\normalsize
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1f2ba8e4-f8cb87e2-d863cf1a-de46dc3a
+% LTXE-SLIDE-ORIGIN:	ca23c0b4-6e8960b4-aede1a9f-0c84574c English
+% LTXE-SLIDE-TITLE:		EXT:Form YAML Configurations Typoscript Option
+% LTXE-SLIDE-REFERENCE:	Deprecation-82089-ExtFormYamlConfigurationsTyposcriptOption.rst
+% ------------------------------------------------------------------------------
+%
+%\begin{frame}[fragile]
+%	\frametitle{Verouderde/verwijderde functies}
+%	\framesubtitle{YAML configuration of \texttt{EXT:form}}
+%
+%	% decrease font size for code listing
+%	\lstset{basicstyle=\tiny\ttfamily}
+%
+%	\begin{itemize}
+%		\item YAML configuration path has been marked as \textbf{deprecated}\newline
+%			(will be removed in TYPO3 v10)
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    yamlConfigurations {
+%				      100 = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				    }
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%		\item Instead, a single configuration file must be registered:
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    configurationFile = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%			\smaller
+%				Same for backend setup (form editor): \texttt{module.tx\_form \{...\}}.
+%			\normalsize
+%
+%	\end{itemize}
+%
+%\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1118b4a8-ff2f7411-f8b8e3b9-4bcf1cdd
+% LTXE-SLIDE-ORIGIN:	e82509d2-68646ba8-c887a63b-60ae97db English
+% LTXE-SLIDE-TITLE:		Deprecate Unneeded RawValidator
+% LTXE-SLIDE-REFERENCE:	83503-DeprecateUnneededRawValidator.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Verouderde/verwijderde functies}
+	\framesubtitle{RawValidator}
+
+	\begin{itemize}
+		\item \texttt{RawValidator} is aangemerkt als \textbf{verouderd}
+		\item Het was bedoeld als een soort NullObject om een "NoSuchValidatorException" te voorkomen,
+			maar de exceptions worden afgevangen zodat de validator onnodig is
+		\item Doordat de validator niets valideert is het waarschijnlijk dat deze wijziging geen
+			invloed heeft op installaties
+		\item Als ontwikkelaars de \texttt{RawValidator} gebruiken moeten ze er zelf een schrijven
+	\end{itemize}
+
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

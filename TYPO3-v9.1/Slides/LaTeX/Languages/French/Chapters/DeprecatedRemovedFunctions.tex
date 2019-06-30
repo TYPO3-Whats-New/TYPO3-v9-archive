@@ -1,0 +1,130 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Deprecated Functions" (French Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		3f842373-9262b8d3-f9c8de76-cf29ce17
+% LTXE-CHAPTER-NAME:	Deprecated Functions
+% ------------------------------------------------------------------------------
+
+\section{Deprecated/Removed Functions}
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+
+	\begin{center}\huge{Chapter 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Deprecated/Removed Functions}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		ab58b102-4e0d5ba0-61a7aba7-aaa2ea88
+% LTXE-SLIDE-ORIGIN:	02a34a6e-add942aa-76ed434c-5651d314 English
+% LTXE-SLIDE-TITLE:		Deprecated Usage of EXT:rsaauth
+% LTXE-SLIDE-REFERENCE:	Deprecation-81852-DeprecatedUsageOfEXTrsaauth.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{\texttt{EXT:rsaauth}}
+
+	\begin{itemize}
+		\item Extension \texttt{EXT:rsaauth} has been marked as \textbf{deprecated}
+		\item Due to the fast growing acceptance of SSL/TLS, the technology used by
+			the extension is no longer deemed "secure":
+
+			\begin{itemize}
+				\item Only the password is transmitted encrypted
+				\item Key exchange between server and client is not authenticated\newline
+					(allows man-in-the-middle attacks)
+				\item Session IDs are transferred unencrypted, but are almost as valuable
+					as passwords
+			\end{itemize}
+
+		\item Use a secure connection (HTTPS) instead, and encrypt \underline{all data}
+			sent between client and server (TYPO3 frontend and backend)
+
+	\end{itemize}
+
+	\smaller
+		\textbf{Note: modern browsers warn users by default when form data is submitted
+			via an unencrypted connection - not only passwords or credit card data.}
+	\normalsize
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		b30b2167-e1baae80-1708f643-dccabf63
+% LTXE-SLIDE-ORIGIN:	ca23c0b4-6e8960b4-aede1a9f-0c84574c English
+% LTXE-SLIDE-TITLE:		EXT:Form YAML Configurations Typoscript Option
+% LTXE-SLIDE-REFERENCE:	Deprecation-82089-ExtFormYamlConfigurationsTyposcriptOption.rst
+% ------------------------------------------------------------------------------
+%
+%\begin{frame}[fragile]
+%	\frametitle{Deprecated/Removed Functions}
+%	\framesubtitle{YAML configuration of \texttt{EXT:form}}
+%
+%	% decrease font size for code listing
+%	\lstset{basicstyle=\tiny\ttfamily}
+%
+%	\begin{itemize}
+%		\item YAML configuration path has been marked as \textbf{deprecated}\newline
+%			(will be removed in TYPO3 v10)
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    yamlConfigurations {
+%				      100 = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				    }
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%		\item Instead, a single configuration file must be registered:
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    configurationFile = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%			\smaller
+%				Same for backend setup (form editor): \texttt{module.tx\_form \{...\}}.
+%			\normalsize
+%
+%	\end{itemize}
+%
+%\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		643cf70e-9955446e-756e11b6-c52bcf17
+% LTXE-SLIDE-ORIGIN:	e82509d2-68646ba8-c887a63b-60ae97db English
+% LTXE-SLIDE-TITLE:		Deprecate Unneeded RawValidator
+% LTXE-SLIDE-REFERENCE:	83503-DeprecateUnneededRawValidator.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{RawValidator}
+
+	\begin{itemize}
+		\item \texttt{RawValidator} has been marked as \textbf{deprecated}
+		\item It was meant to be some kind of NullObject to prevent a "NoSuchValidatorException",
+			but these Exceptions are caught, which makes the validator obsolete
+		\item Due to the fact that the validator does not validate anything,
+			chances are high that this change does not affect any installations at all
+		\item In case developers use the \texttt{RawValidator}, they need to implement it themselves
+	\end{itemize}
+
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

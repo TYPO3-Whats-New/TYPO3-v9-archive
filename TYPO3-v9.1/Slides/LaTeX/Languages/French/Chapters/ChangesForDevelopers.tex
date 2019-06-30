@@ -1,0 +1,228 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Changes for Developers" (French Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		846d40ce-66fdc2ec-750dcf95-33ce93e0
+% LTXE-CHAPTER-NAME:	Changes for Developers
+% ------------------------------------------------------------------------------
+
+\section{Changes for Developers}
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+
+	\begin{center}\huge{Chapter 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Changes for Developers}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		6ab16607-3bbd95e3-24301677-0a896160
+% LTXE-SLIDE-ORIGIN:	d71432e3-7bb8957c-e2bb6e80-bc8b8c9b English
+% LTXE-SLIDE-TITLE:		Add recursive filtering of arrays
+% LTXE-SLIDE-REFERENCE:	83350-AddRecursiveArrayFiltering
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+	\framesubtitle{\texttt{filterRecursive()}}
+
+	\begin{itemize}
+		\item Class
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Core\textbackslash
+				Utility\textbackslash
+				ArrayUtility}\newline
+			features a new method to filter multidimensional arrays:\newline
+			\texttt{filterRecursive()}
+		\item This method behaves just like PHP function \texttt{array\_filter()}\newline
+			\small
+				\href{https://php.net/manual/en/function.array-filter.php}{https://php.net/manual/en/function.array-filter.php}
+			\normalsize
+		\item If no callback is defined, values are removed, if they equal to boolean "\texttt{false}"
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		cd84eb65-ac969371-2030f1d1-c8bba7ca
+% LTXE-SLIDE-ORIGIN:	15e90c1f-404b54ef-34ea893a-a0caa659 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (1)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+	\framesubtitle{Feature Toggles (1)}
+
+	\begin{itemize}
+		\item New API \textbf{Feature Toggles} has been implemented
+		\item The purpose of this API is to better support alternative functionality,
+			while retaining old functionality
+		\item The API checks against a system-wide option array within\newline
+			\small
+				\texttt{\$TYPO3\_CONF\_VARS['SYS']['features']}
+			\normalsize
+		\item Both, the TYPO3 core as well as extensions can then provide
+			alternative functionality for a certain feature
+		\item Typical use cases are for example:
+			\smaller
+			\begin{itemize}
+				\item Throw exceptions on certain occasions instead of
+					returning a string as an error message.
+				\item Disable obsolete functionality, which might still be used,\newline
+					but slows down the system.
+				\item Enable alternative PageNotFound handling for an installation.
+			\end{itemize}
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		a6bfd7b7-c79602eb-d4106769-6419f766
+% LTXE-SLIDE-ORIGIN:	01a0a341-376f611a-ab4b764e-4ff86727 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (2)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+	\framesubtitle{Feature Toggles (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+
+		\item Features are documented for the TYPO3 core\newline
+			\small
+				(add link)
+			\normalsize
+
+		\item Extension authors can use the API for any custom feature provided
+			by the extension:
+
+			\begin{lstlisting}
+				if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('myFeatureName')) {
+				  // do custom processing
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		5d134164-f8da885e-37118cd5-1a9626a1
+% LTXE-SLIDE-ORIGIN:	865e2894-3ce87c06-0f92cc8b-b880318e English
+% LTXE-SLIDE-TITLE:		Additional Hook For Record List
+% LTXE-SLIDE-REFERENCE:	61170-AddAdditionalHookForRecordList
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+	\framesubtitle{"Draw Header" Hook}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item New hook has been added to \texttt{EXT:recordlist}
+			to render content above any other content
+
+		\item Register a hook:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']
+				  ['drawHeaderHook']['sys_note'] = \Vendor\Extkey\Hooks\PageHook::class . '->render';
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		8f642c49-df5ce574-ac7d01b9-3fa42c33
+% LTXE-SLIDE-ORIGIN:	40b574bb-9f828b9d-cecafb06-096f4f29 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (1)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+	\framesubtitle{BE User Login Hook (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item On backend user logins, registered hooks are executed
+		\item This allows TYPO3 developers to build functions that do
+			\textit{something} when a BE user logs in
+
+		\item Notification services are typical use cases:
+
+			\begin{itemize}
+				\item Post a message to Slack or a similar messaging system.
+				\item Send a text message (SMS) to the user's mobile number.
+				\item Pass this event to other systems to monitor suspicious activities.
+				\item etc.
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c2ce832d-9d448340-5cdba46e-8a62f16a
+% LTXE-SLIDE-ORIGIN:	8ab4904f-865ba977-d1d3cbd0-ff9b3797 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (2)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Changes for Developers}
+	\framesubtitle{BE User Login Hook (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Register a hook:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_userauthgroup.php']
+				  ['backendUserLogin'][] = \Vendor\Extkey\Hooks\BackendUserLogin::class . '->dispatch';
+			\end{lstlisting}
+
+		\item This executes method \texttt{dispatch()} when a BE user logs in, and passes
+			the user array as a parameter to the method:
+
+			\begin{lstlisting}
+				public function dispatch($backendUser)
+				{
+				  if (isset($backendUser['user']['username'])) {
+				    $username = $backendUser['user']['username'];
+				    $email = $backendUser['user']['email'];
+				    // do something...
+				  }
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

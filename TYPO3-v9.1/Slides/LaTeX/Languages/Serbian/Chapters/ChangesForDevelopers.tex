@@ -1,0 +1,224 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Changes for Developers" (Serbian Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		846d40ce-66fdc2ec-750dcf95-33ce93e0
+% LTXE-CHAPTER-NAME:	Changes for Developers
+% ------------------------------------------------------------------------------
+
+\section{Izmene za programere}
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+
+	\begin{center}\huge{Poglavlje 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Izmene za programere}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		53ac46be-2d21b283-4db6d9df-a1217eeb
+% LTXE-SLIDE-ORIGIN:	d71432e3-7bb8957c-e2bb6e80-bc8b8c9b English
+% LTXE-SLIDE-TITLE:		Add recursive filtering of arrays
+% LTXE-SLIDE-REFERENCE:	83350-AddRecursiveArrayFiltering
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+	\framesubtitle{\texttt{filterRecursive()}}
+
+	\begin{itemize}
+		\item Klasa
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Core\textbackslash
+				Utility\textbackslash
+				ArrayUtility}\newline
+			je dobila novi metod za filtriranje visedimenzionih nizeva:\newline
+			\texttt{filterRecursive()}
+		\item Ovaj metod se ponasa kao i PHP funkcija \texttt{array\_filter()}\newline
+			\small
+				\href{https://php.net/manual/en/function.array-filter.php}{https://php.net/manual/en/function.array-filter.php}
+			\normalsize
+		\item Ako nije definisan callback uklanjaju su vrednosti koje imaju vrednost jadnaku vrednosti boolean "\texttt{false}"
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		b4d4881c-d292b801-9319a2cb-f1430022
+% LTXE-SLIDE-ORIGIN:	15e90c1f-404b54ef-34ea893a-a0caa659 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (1)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+	\framesubtitle{Feature Toggles (1)}
+
+	\begin{itemize}
+		\item Novi API \textbf{Feature Toggles} je implementiran
+		\item Svrha ovog API-ja je da bolje podrzi alternativne funkcionalnosti,
+			a da pri tome zadrzi stare funkcionalnosti
+		\item API proverava ceo sistem unutar niza\newline
+			\small
+				\texttt{\$TYPO3\_CONF\_VARS['SYS']['features']}
+			\normalsize
+		\item TYPO3 jezgro kao i ekstenzije mogu da pruze alternativne funkcionalnosti za
+			odredjena svojstva
+		\item Tipican primer je:
+			\smaller
+			\begin{itemize}
+				\item Baciti izuzetak u odredjenim okolnostima umesto vracanja
+					stringa kao greske.
+				\item Iskljuciti zastarele funkcionalnosti, koje mogu i dalje da se koriste,
+					ali usporavaju sistem.
+				\item Omoguciti alternativno upravljanje PageNotFound za instalaciju.
+			\end{itemize}
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		06ce8a20-417b0e63-984ba574-521297f5
+% LTXE-SLIDE-ORIGIN:	01a0a341-376f611a-ab4b764e-4ff86727 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (2)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+	\framesubtitle{Feature Toggles (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+
+		\item "Features" za TYPO3 jezgro su dokumentovane
+
+		\item Autori prosirenja mogu da koriste API za bilo koju karakteristiku u ekstenziji:
+
+			\begin{lstlisting}
+				if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('myFeatureName')) {
+				  // do custom processing
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		142cf616-8e960b44-5d2bd9b4-1112553b
+% LTXE-SLIDE-ORIGIN:	865e2894-3ce87c06-0f92cc8b-b880318e English
+% LTXE-SLIDE-TITLE:		Additional Hook For Record List
+% LTXE-SLIDE-REFERENCE:	61170-AddAdditionalHookForRecordList
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+	\framesubtitle{"Draw Header" Hook}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Novi hook je dodat u \texttt{EXT:recordlist}
+			sa svrhom da izrendera sadrzaj iznad bilo kog drugog sadrzaja
+			
+		\item Registrovanje hook-a:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']
+				  ['drawHeaderHook']['sys_note'] = \Vendor\Extkey\Hooks\PageHook::class . '->render';
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c1686a6a-3a7fd7bd-dcc5dec0-c1db722b
+% LTXE-SLIDE-ORIGIN:	40b574bb-9f828b9d-cecafb06-096f4f29 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (1)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+	\framesubtitle{BE User Login Hook (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Registrovani hook-ovi se izvrsavaju prilikom prijave na administratorski interfejs
+		\item Ovo omogucava TYPO3 programerima da naprave funkcije koje rade 
+			\textit{nesto} kada se BE korisnik loguje.
+
+		\item Servisi za obavestavanje su tipican primer:
+
+			\begin{itemize}
+				\item Slanje poruke na Slack ili slican sistem za poruke.
+				\item Slanje tekstualne poruke (SMS) na broj korisnikovog mobilnog telefona.
+				\item Prosledjivanje ovog dogadjaja drugim sistemima za pracenje sumljivih aktivnosti.
+				\item itd.
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		872c27cc-bbf60e39-79e1c718-53393df5
+% LTXE-SLIDE-ORIGIN:	8ab4904f-865ba977-d1d3cbd0-ff9b3797 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (2)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Izmene za programere}
+	\framesubtitle{BE User Login Hook (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Registrovanje hook-a:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_userauthgroup.php']
+				  ['backendUserLogin'][] = \Vendor\Extkey\Hooks\BackendUserLogin::class . '->dispatch';
+			\end{lstlisting}
+
+		\item Ovaj kod izvrsava metod \texttt{dispatch()} kada se BE korisnik uloguje
+			i prosledjuje korisnicki niz kao parametar metoda
+
+			\begin{lstlisting}
+				public function dispatch($backendUser)
+				{
+				  if (isset($backendUser['user']['username'])) {
+				    $username = $backendUser['user']['username'];
+				    $email = $backendUser['user']['email'];
+				    // do something...
+				  }
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

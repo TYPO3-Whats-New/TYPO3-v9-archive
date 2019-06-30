@@ -1,0 +1,129 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Deprecated Functions" (Serbian Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		3f842373-9262b8d3-f9c8de76-cf29ce17
+% LTXE-CHAPTER-NAME:	Deprecated Functions
+% ------------------------------------------------------------------------------
+
+\section{Zastarele/Izbacene Funkcije}
+\begin{frame}[fragile]
+	\frametitle{Zastarele/Izbacene Funkcije}
+
+	\begin{center}\huge{Poglavlje 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Zastarele/Izbacene Funkcije}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		12381f23-f557f92b-f9d980b5-ae0c7fd9
+% LTXE-SLIDE-ORIGIN:	02a34a6e-add942aa-76ed434c-5651d314 English
+% LTXE-SLIDE-TITLE:		Deprecated Usage of EXT:rsaauth
+% LTXE-SLIDE-REFERENCE:	Deprecation-81852-DeprecatedUsageOfEXTrsaauth.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Zastarele/Izbacene Funkcije}
+	\framesubtitle{\texttt{EXT:rsaauth}}
+
+	\begin{itemize}
+		\item Ekstenzija \texttt{EXT:rsaauth} je oznacena kao \textbf{zastarela}
+		\item Zbog brzog prihvatanja SSL/TLS, tehnologija koju koristi ova ekstenzija 
+			vise se ne smatra "sigurnom":
+
+			\begin{itemize}
+				\item Samo se lozinka prenosi enkriptovana
+				\item Razmena kljuceva izmedju servera i klijenta nije autentifikovana\newline
+					(dozvoljava man-in-the-middle napade)
+				\item ID-jevi sesije se prenose neenkriptovani, a vazni su skoro kao i lozinke
+			\end{itemize}
+
+		\item Umesto ovoga koristiti sigurnu konekciju (HTTPS) i enkriptovati \underline{sve podatke}
+			koji se salju izmedju servera i klijenta (TYPO3 korisnicki interfejs i administratorski interfejs)
+
+	\end{itemize}
+
+	\smaller
+		\textbf{Napomena: moderni pretrazivaci upozoravaju korisnike kada su podaci sa forme poslati 
+			putem neenkriptovane konekcije, ne samo za lozinke i podatke kreditnih kartica}
+	\normalsize
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		07cb7b85-a1d24afd-362866ea-f61aaf4d
+% LTXE-SLIDE-ORIGIN:	ca23c0b4-6e8960b4-aede1a9f-0c84574c English
+% LTXE-SLIDE-TITLE:		EXT:Form YAML Configurations Typoscript Option
+% LTXE-SLIDE-REFERENCE:	Deprecation-82089-ExtFormYamlConfigurationsTyposcriptOption.rst
+% ------------------------------------------------------------------------------
+%
+%\begin{frame}[fragile]
+%	\frametitle{Zastarele/Izbacene Funkcije}
+%	\framesubtitle{YAML configuration of \texttt{EXT:form}}
+%
+%	% decrease font size for code listing
+%	\lstset{basicstyle=\tiny\ttfamily}
+%
+%	\begin{itemize}
+%		\item YAML configuration path has been marked as \textbf{deprecated}\newline
+%			(will be removed in TYPO3 v10)
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    yamlConfigurations {
+%				      100 = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				    }
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%		\item Instead, a single configuration file must be registered:
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    configurationFile = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%			\smaller
+%				Same for backend setup (form editor): \texttt{module.tx\_form \{...\}}.
+%			\normalsize
+%
+%	\end{itemize}
+%
+%\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		761d6d9f-adb5aa47-3af50e57-4f2be67c
+% LTXE-SLIDE-ORIGIN:	e82509d2-68646ba8-c887a63b-60ae97db English
+% LTXE-SLIDE-TITLE:		Deprecate Unneeded RawValidator
+% LTXE-SLIDE-REFERENCE:	83503-DeprecateUnneededRawValidator.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Zastarele/Izbacene Funkcije}
+	\framesubtitle{RawValidator}
+
+	\begin{itemize}
+		\item \texttt{RawValidator} je oznacen kao  \textbf{zastareo}
+		\item Zamisljen je kao neka vrsta NullObject-a da spreci "NoSuchValidatorException",
+			ali ovi izuzetci su uhvaceni sto cini ovaj validator zastarelim
+		\item Iz razloga sto validator ne validira nista,
+			velika je verovatnoca da ova izmena nece uticati ni na jednu instalaciju.
+		\item U slucaju da programeri ipak koriste \texttt{RawValidator}, morace sami da ga implementiraju
+	\end{itemize}
+
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

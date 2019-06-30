@@ -1,0 +1,127 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Deprecated Functions" (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		3f842373-9262b8d3-f9c8de76-cf29ce17
+% LTXE-CHAPTER-NAME:	Deprecated Functions
+% ------------------------------------------------------------------------------
+
+\section{Veraltete/Entfernte Funktionen}
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+
+	\begin{center}\huge{Kapitel 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Veraltete/Entfernte Funktionen}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		02a34a6e-add942aa-76ed434c-5651d314
+% LTXE-SLIDE-TITLE:		Deprecated Usage of EXT:rsaauth
+% LTXE-SLIDE-REFERENCE:	Deprecation-81852-DeprecatedUsageOfEXTrsaauth.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{\texttt{EXT:rsaauth}}
+
+	\begin{itemize}
+		\item Die Erweiterung \texttt{EXT:rsaauth} wurde als \textbf{veraltet} markiert
+		\item Aufgrund der schnell wachsenden Akzeptanz von SSL/TLS, wird die benutzte
+			Technologie nicht mehr als "sicher" betrachtet:
+
+			\begin{itemize}
+				\item Nur das Passwort wird verschlüsselt übertragen
+				\item Der Schlüsselaustausch zwischen Client und Server wird nicht authentifiziert
+					(jenes ermöglicht "man-in-the-middle"-Angriffe)
+				\item Session IDs werden unverschlüsselt übertragen, sind aber fast so wertvoll wie
+					Kennwörter
+			\end{itemize}
+
+		\item Stattdessen sollte generell HTTPS verwendet und somit \underline{alle Daten}
+			zwischen Client und Server verschlüsselt werden (FE und BE)
+
+	\end{itemize}
+
+	\smaller
+		\textbf{Hinweis: moderne Browser warnen Benutzer standardmäßig, wenn Formulardaten über eine
+		   unverschlüsselte Verbindung übermittelt werden - nicht nur Passwörter oder Kreditkartendaten.}
+	\normalsize
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		ca23c0b4-6e8960b4-aede1a9f-0c84574c
+% LTXE-SLIDE-TITLE:		EXT:Form YAML Configurations Typoscript Option
+% LTXE-SLIDE-REFERENCE:	Deprecation-82089-ExtFormYamlConfigurationsTyposcriptOption.rst
+% ------------------------------------------------------------------------------
+%
+%\begin{frame}[fragile]
+%	\frametitle{Deprecated/Removed Functions}
+%	\framesubtitle{YAML configuration of \texttt{EXT:form}}
+%
+%	% decrease font size for code listing
+%	\lstset{basicstyle=\tiny\ttfamily}
+%
+%	\begin{itemize}
+%		\item YAML configuration path has been marked as \textbf{deprecated}\newline
+%			(will be removed in TYPO3 v10)
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    yamlConfigurations {
+%				      100 = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				    }
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%		\item Instead, a single configuration file must be registered:
+%
+%			\begin{lstlisting}
+%				plugin.tx_form {
+%				  settings {
+%				    configurationFile = EXT:my_site_package/Configuration/Yaml/CustomFormSetup.yaml
+%				  }
+%				}
+%			\end{lstlisting}
+%
+%			\smaller
+%				Same for backend setup (form editor): \texttt{module.tx\_form \{...\}}.
+%			\normalsize
+%
+%	\end{itemize}
+%
+%\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		e82509d2-68646ba8-c887a63b-60ae97db
+% LTXE-SLIDE-TITLE:		Deprecate Unneeded RawValidator
+% LTXE-SLIDE-REFERENCE:	83503-DeprecateUnneededRawValidator.rst
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{RawValidator}
+
+	\begin{itemize}
+		\item \texttt{RawValidator} wurde als \textbf{veraltet} markiert
+		\item Es sollte eine Art NullObject sein, um eine "NoSuchValidatorException" zu verhindern,
+			aber diese Exceptions werden abgefangen, wodurch der Validator obsolet wird
+		\item Aufgrund der Tatsache, dass der Validator nichts validiert,
+			ist die Chance groß, dass diese Änderung keine Installationen beeinflusst
+		\item Falls Entwickler \texttt{RawValidator} verwenden, müssen sie es selbst implementieren
+	\end{itemize}
+
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

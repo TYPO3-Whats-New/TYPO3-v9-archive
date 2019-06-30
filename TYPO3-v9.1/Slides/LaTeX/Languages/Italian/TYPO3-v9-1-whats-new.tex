@@ -1,0 +1,115 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New (Italian Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\documentclass[t]{beamer}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+
+\mode<presentation>
+{
+	\usetheme{typo3slides}
+}
+
+% global variables
+\title{TYPO3 CMS Versione 9.1 - Le novità}
+\subtitle{Riepilogo delle funzionalità, modifiche e aggiornamenti}
+\author{
+	\centerline{Traduzione italiana di:}
+	\textbf{Roberto Torresani} (roberto.torresani (at) typo3.org)
+}
+
+\date{\today}
+
+\begin{document}
+
+% select TYPO3 Share font
+\sharefont
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-TITLEPAGE
+% ------------------------------------------------------------------------------
+
+\begingroup
+	\setbeamercolor{normal text}{fg=white,bg=typo3orange}
+	\setbeamercolor{title}{fg=white}
+	\setbeamercolor{author}{fg=white}
+	\setbeamertemplate{footline}[default]
+	\begin{frame}
+		\titlepage
+	\end{frame}
+\endgroup
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-TABLEOFCONTENTS
+% ------------------------------------------------------------------------------
+
+\section*{TYPO3 CMS Versione 9.1 - Le novità}
+\begin{frame}[fragile]
+	\frametitle{Indice delle sezioni}
+	\framesubtitle{Indice delle sezioni}
+
+	\tableofcontents
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTERS-START
+% LTXE-CHAPTER-INCLUDE:	7fdf26cc-362160ab-d6c8b905-19722b20
+% ------------------------------------------------------------------------------
+
+\include{Chapters/Introduction}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	07b25346-95b1df21-a6ebe09a-49f53f41
+% ------------------------------------------------------------------------------
+
+\include{Chapters/BackendUserInterface}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	3a9852ea-e2360d9d-1ff5eec1-a7de3f9f
+% ------------------------------------------------------------------------------
+
+\include{Chapters/ChangesForIntegrators}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	846d40ce-66fdc2ec-750dcf95-33ce93e0
+% ------------------------------------------------------------------------------
+
+\include{Chapters/ChangesForDevelopers}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	3f842373-9262b8d3-f9c8de76-cf29ce17
+% ------------------------------------------------------------------------------
+
+\include{Chapters/DeprecatedRemovedFunctions}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	68197358-0dc32ac8-dea3141e-8267c2d8
+% ------------------------------------------------------------------------------
+
+\include{Chapters/Miscellaneous}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	b28441c6-44c982a3-35fcefd3-f4dc5d5c
+% ------------------------------------------------------------------------------
+
+\include{Chapters/SourcesAndAuthors}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-INCLUDE:	cef9cb9d-f1133162-f1c8ee81-caddf7b0
+% *** DO NOT INCLUDE THIS CHAPTER IN FINAL VERSION! ***
+% ------------------------------------------------------------------------------
+
+%\include{Chapters/TestChapter}
+
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTERS-END
+% ------------------------------------------------------------------------------
+\end{document}

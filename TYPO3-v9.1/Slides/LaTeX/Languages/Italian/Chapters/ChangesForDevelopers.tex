@@ -1,0 +1,227 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.1 - What's New - Chapter "Changes for Developers" (Italian Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		846d40ce-66fdc2ec-750dcf95-33ce93e0
+% LTXE-CHAPTER-NAME:	Changes for Developers
+% ------------------------------------------------------------------------------
+
+\section{Modifiche per sviluppatori}
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+
+	\begin{center}\huge{Capitolo 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Modifiche per sviluppatori}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f0454058-9ddee245-fee04f19-8dcaeedb
+% LTXE-SLIDE-ORIGIN:	d71432e3-7bb8957c-e2bb6e80-bc8b8c9b English
+% LTXE-SLIDE-TITLE:		Add recursive filtering of arrays
+% LTXE-SLIDE-REFERENCE:	83350-AddRecursiveArrayFiltering
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+	\framesubtitle{\texttt{filterRecursive()}}
+
+	\begin{itemize}
+		\item La Class
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Core\textbackslash
+				Utility\textbackslash
+				ArrayUtility}\newline
+			presenta un nuovo metodo per filtrare gli array multidimensionali:\newline
+			\texttt{filterRecursive()}
+		\item Questo metodo si comporta come la funzione PHP \texttt{array\_filter()}\newline
+			\small
+				\href{https://php.net/manual/en/function.array-filter.php}{https://php.net/manual/en/function.array-filter.php}
+			\normalsize
+		\item Se non è definita una callback, quando i valori equivalgono al boolean "\texttt{false}" vengono rimossi
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		73ee1775-079dd1fc-e66954a2-fe6cf610
+% LTXE-SLIDE-ORIGIN:	15e90c1f-404b54ef-34ea893a-a0caa659 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (1)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+	\framesubtitle{Attiva/Disattiva funzionalità [Feature Toggles] (1)}
+
+	\begin{itemize}
+		\item La nuova API \textbf{Feature Toggles} è stata implementata.
+		\item L'obiettivo di questa API è quello di supportare al meglio le funzionalità alternative,
+			pur mantenendo le vecchie funzionalità
+		\item L'API verifica in un array di opzioni a livello di sistema\newline
+			\small
+				\texttt{\$TYPO3\_CONF\_VARS['SYS']['features']}
+			\normalsize
+		\item Sia il core di TYPO3 che le estensioni possono quindi fornire
+			funzionalità alternative per una determinata azione
+		\item Tipi casi d'uso per esempio:
+			\smaller
+			\begin{itemize}
+				\item Creare eccezioni in determinate occasioni, invece di una stringa di errore.
+				\item Disabilitare una funzionalità obsoleta, che potrebbe essere ancora utilizzata,
+					ma rallenta il sistema.
+				\item Abilita una funzione alternativa di gestione PageNotFound in un'installazione.
+			\end{itemize}
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		a7509650-cc2b9222-31f6ea94-d6cc2389
+% LTXE-SLIDE-ORIGIN:	01a0a341-376f611a-ab4b764e-4ff86727 English
+% LTXE-SLIDE-TITLE:		Feature Toggles (2)
+% LTXE-SLIDE-REFERENCE:	83429-FeatureToggles
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+	\framesubtitle{Attiva/Disattiva funzionalità [Feature Toggles] (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+
+		\item Le funzionalità sono documentate per il core di TYPO3\newline
+			\small
+				(add link)
+			\normalsize
+
+		\item Gli sviluppatori di estensioni possono usare l'API per qualsiasi funzione	
+			personalizzata fornita dall'estensione:
+
+			\begin{lstlisting}
+				if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('myFeatureName')) {
+				  // do custom processing
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		37566498-8a51e9a9-fd0e3914-106a267a
+% LTXE-SLIDE-ORIGIN:	865e2894-3ce87c06-0f92cc8b-b880318e English
+% LTXE-SLIDE-TITLE:		Additional Hook For Record List
+% LTXE-SLIDE-REFERENCE:	61170-AddAdditionalHookForRecordList
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+	\framesubtitle{"Draw Header" Hook}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Un nuovo hook è stato aggiunto a \texttt{EXT:recordlist}
+			per renderizzare un contenuto sopra qualsiasi altro contenuto
+
+		\item Per registare un hook:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']
+				  ['drawHeaderHook']['sys_note'] = \Vendor\Extkey\Hooks\PageHook::class . '->render';
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		81c8038c-6990e031-025be7c9-ecab1cbd
+% LTXE-SLIDE-ORIGIN:	40b574bb-9f828b9d-cecafb06-096f4f29 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (1)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+	\framesubtitle{BE User Login Hook (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Negli accessi di utenti di backend, sono eseguiti hook registrati
+		\item Questo permette agli sviluppatori TYPO3 di creare funzioni che fanno
+			\textit{qualcosa} quando accede un utente di BE
+
+		\item I servizi di notifica sono tipici casi d'uso:
+
+			\begin{itemize}
+				\item Invia un messaggio a Slack o sistemi simili di messaggistica.
+				\item Invia un SMS al cellulare dell'utente.
+				\item Passa questo evento ad un altro sistema per monitorare attività sospette.
+				\item ecc.
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		d0e0656e-0011fe4a-4dd41e31-1858d7cc
+% LTXE-SLIDE-ORIGIN:	8ab4904f-865ba977-d1d3cbd0-ff9b3797 English
+% LTXE-SLIDE-TITLE:		BE User Login Hook (2)
+% LTXE-SLIDE-REFERENCE:	83529-ExecuteHooksOnBackendUserLogin
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Modifiche per sviluppatori}
+	\framesubtitle{BE User Login Hook (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Per registrare un hook:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_userauthgroup.php']
+				  ['backendUserLogin'][] = \Vendor\Extkey\Hooks\BackendUserLogin::class . '->dispatch';
+			\end{lstlisting}
+
+		\item Esegue il metodo \texttt{dispatch()} quando un utente di BE accede, e passa
+			lo user array come parametro al metodo:
+
+			\begin{lstlisting}
+				public function dispatch($backendUser)
+				{
+				  if (isset($backendUser['user']['username'])) {
+				    $username = $backendUser['user']['username'];
+				    $email = $backendUser['user']['email'];
+				    // do something...
+				  }
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
