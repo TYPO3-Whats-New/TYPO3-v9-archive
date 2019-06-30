@@ -1,0 +1,357 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.3 - What's New - Chapter "Changes for Developers" (German Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	German
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		846d40ce-66fdc2ec-750dcf95-33ce93e0
+% LTXE-CHAPTER-NAME:	Changes for Developers
+% ------------------------------------------------------------------------------
+
+\section{Änderungen für Entwickler}
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+
+	\begin{center}\huge{Kapitel 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Änderungen für Entwickler}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Management Database Columns
+% LTXE-SLIDE-REFERENCE:	#85160 - Auto create management DB fields from TCA ctrl
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{"Management" Datenbankspalten}
+
+	\begin{itemize}
+		\item Der Datenbankschema-Analysator erstellt automatisch TYPO3 - "Management"
+			Spalten, indem er den TCA liest
+		\item Entwickler müssen diese Felder nicht in der Datei 
+			\texttt{ext\_tables.sql} angeben
+		\item Beispiele für Managementfelder:\newline
+			\texttt{uid}, \texttt{pid}, \texttt{crdate}, \texttt{cruser},
+			\texttt{hidden}, \texttt{deleted}, \texttt{sortby}, etc.
+		\item Felddefinitionen in \texttt{ext\_tables.sql} haben Vorrang vor automatisch 
+			generierten Feldern, diese können also bei Bedarf
+			angepasst werden
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Meta Tag Manager (API) (1)
+% LTXE-SLIDE-REFERENCE:	#81464 - Add API for meta tag management
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Meta-Tag-Manager (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die neue \texttt{MetaTagManager}-API wurde zum Verwalten und Rendern der 
+			Metatags auf flexible, geregelte Weise eingeführt.
+		\item TYPO3 core liefert zum Beispiel einen \href{http://ogp.me/}{Open Graph}
+			\texttt{MetaTagManager}
+
+			\begin{lstlisting}
+				use \TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
+				$metaTagManager = MetaTagManagerRegistry::getInstance()->getManagerForProperty('og:title');
+				$metaTagManager->addProperty('og:title', 'This is the OG title from a controller');
+			\end{lstlisting}
+
+		\item Weitere verfügbare Beispielfunktionen:
+
+			\begin{itemize}
+				\smaller
+					\item \texttt{\$metaTagManager->addProperty()}
+					\item \texttt{\$metaTagManager->removeProperty()}
+					\item \texttt{\$metaTagManager->removeAllProperties()}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Meta Tag Manager (API) (2)
+% LTXE-SLIDE-REFERENCE:	#81464 - Add API for meta tag management
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Meta-Tag-Manager (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die Entwickler können benutzerdefinierte \texttt{MetaTagManager} in der
+			\texttt{MetaTagManagerRegistry} anlegen
+
+			\begin{lstlisting}
+				use \TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
+				$metaTagManagerRegistry = MetaTagManagerRegistry::getInstance();
+				$metaTagManagerRegistry->registerManager(
+				  'custom',
+				  \Some\CustomExtension\MetaTag\CustomMetaTagManager::class
+				);
+			\end{lstlisting}
+
+		\item Meta-Tags können mit TypoScript und PHP gesetzt werden
+
+			\begin{lstlisting}
+				page.meta {
+				  og:site_name = TYPO3
+				  og:site_name.attribute = property
+				  og:site_name.replace = 1
+				}
+			\end{lstlisting}
+
+			\smaller
+				("\texttt{replace = 1}" ersetzt zuvor festgelegte Meta-Tags)
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Doctrine: Negative DateInterval Fields
+% LTXE-SLIDE-REFERENCE:	#84744 - Raise doctrine/dbal-version
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Doctrine: Negative DateInterval Felder}
+
+	\begin{itemize}
+		\item "Doctrine" wurde auf Version 2.7.1 erhöht
+		\item Der Werte der \texttt{DateInterval}-Felder können nun auch negativ sein, 
+			das heißt, dass sie entweder mit "\texttt{+}" oder "\texttt{-}" beginnen müssen
+		\item Migration: angenommen, dass negative \texttt{DateIntervals} noch nicht verwendet worden sind,
+			einfach die Daten mit "\texttt{+}" voranstellen
+	\end{itemize}
+
+	\breakingchange
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Validate annotation
+% LTXE-SLIDE-REFERENCE:	#83167 - Replace @validate with @TYPO3\CMS\Extbase\Annotation\Validate
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler }
+	\framesubtitle{Annotation als Klassennamen validieren}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die Doctrine Annotation
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Extbase\textbackslash
+				Annotation\textbackslash
+				Validate} wurde eingeführt
+		\item Dies ist ein Nachfolger der Annotation \texttt{\@validate} 
+		\item Ein Beispiel dafür:
+
+			\begin{lstlisting}
+				/**
+				 * @TYPO3\CMS\Extbase\Annotation\Validate
+				 * @var Foo
+				 */
+				public $property;
+			\end{lstlisting}
+
+		\item Die \texttt{use}-Anweisung kann ebenfalls verwendet werden:
+
+			\begin{lstlisting}
+				use TYPO3\CMS\Extbase\Annotation\Validate;
+
+				/**
+				 * @Validate
+				 * @var Foo
+				 */
+				public $property;
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Backend ViewHelpers
+% LTXE-SLIDE-REFERENCE:	#83983 - Improved ModuleLinkViewHelper
+% LTXE-SLIDE-REFERENCE:	#84983 - BE ViewHelper for EditDocumentController
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Backend ViewHelpers}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\fontsize{7.5pt}{10}\selectfont\ttfamily}
+
+	\begin{itemize}
+		\item Das Modul Link ViewHelper unterstützt zwei neue Argumente\newline
+			\small
+				\texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Backend\textbackslash
+					ViewHelpers\textbackslash
+					ModuleLinkViewHelper}
+			\normalsize
+
+			\begin{itemize}
+				\small
+				\item \texttt{query}: erlaubt Abfrageparameter auch als String zu definieren
+				\item \texttt{currentUrlParameterName}: Argument verwendet die aktuelle URL
+			\end{itemize}
+
+			Diese Änderung ermöglicht es Entwicklern, vorhandene benutzerdefinierte Viewhelper Backend-Routen
+			zu diesem Viewhelper zu migrieren.
+
+		\item Neue ViewHelper-Funktionen für das Backend zur Vereinfachung der Erstellung/Bearbeitung der Datensätze:
+
+			\begin{lstlisting}
+				<be:uri.newRecord pid=" ... " table=" ... " />
+				<be:link.newRecord pid=" ... " table=" ... " />
+				<be:uri.editRecord uid=" ... " table=" ... " />
+				<be:link.editRecord uid=" ... " table=" ... " />
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		LanguageMenu Processor (1)
+% LTXE-SLIDE-REFERENCE:	#84650 - Introduce fluid data processor for language menus
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{LanguageMenu Processor (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Ein neuer \texttt{LanguageMenuProcessor} für Fluid wurde eingeführt
+
+			\begin{lstlisting}
+				10 = TYPO3\CMS\Frontend\DataProcessing\LanguageMenuProcessor
+				10 {
+				  languages = auto
+				  as = languageNavigation
+				}
+			\end{lstlisting}
+
+		\item mögliche Optionen:
+
+			\begin{itemize}
+
+				\item \texttt{if}: TypoScript \texttt{if} Bedingung
+				\item \texttt{languages}: eine Liste von durch Komma getrennten Sprach-IDs
+					(z.B. 0,1,2) "\texttt{auto}" zum laden von Seitensprachen
+				\item \texttt{as}: Variable, die innerhalb des Ergebnisses verwendet werden soll
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		LanguageMenu Processor (2)
+% LTXE-SLIDE-REFERENCE:	#84650 - Introduce fluid data processor for language menus
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{LanguageMenu Processor (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Ein Beispiel für Fluid-Vorlage:
+
+			\begin{lstlisting}
+				<f:if condition="{languageNavigation}">
+				  <ul id="language" class="language-menu">
+				    <f:for each="{languageNavigation}" as="item">
+				      <li class="{f:if(condition: item.active, then: 'active')}{f:if(condition: item.available, else: ' text-muted')}">
+				        <f:if condition="{item.available}">
+				          <f:then>
+				            <a href="{item.link}" hreflang="{item.hreflang}" title="{item.navigationTitle}">
+				              <span>{item.navigationTitle}</span>
+				            </a>
+				          </f:then>
+				          <f:else>
+				            <span>{item.navigationTitle}</span>
+				          </f:else>
+				        </f:if>
+				      </li>
+				    </f:for>
+				  </ul>
+				</f:if>
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f38ee3cb-51d1aa0a-4f6884bf-adadc9e3
+% LTXE-SLIDE-TITLE:		Miscellaneous (1)
+% LTXE-SLIDE-REFERENCE:	#85025 - Enumerations are now final
+% LTXE-SLIDE-REFERENCE:	#84244 - Allow adding additional query restrictions
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Sonstiges}
+
+	\begin{itemize}
+		\item Alle TYPO3 ennumeration-Klassen wurden als "\texttt{final}" markiert und Klassen
+			 von Drittanbietern, die Aufzählungen erweitern, lösen einen schwerwiegenden PHP-Fehler aus
+		\item Zusätzliche Abfrageeinschränkungen können zur \newline
+			\smaller
+				\texttt{\$GLOBALS['TYPO3\_CONF\_VARS']['DB']['additionalQueryRestrictions']} 
+			\normalsize hinzugefügt werden \newline
+			Diese Begrenzungen sollten zu jeder ausgewählten Abfrage hinzugefügt werden, die 
+			mit dem QueryBuilder ausgeführt wird (vorsichtig verwenden!)
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

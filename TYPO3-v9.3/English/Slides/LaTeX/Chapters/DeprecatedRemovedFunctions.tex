@@ -1,0 +1,264 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.3 - What's New - Chapter "Deprecated Functions" (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		3f842373-9262b8d3-f9c8de76-cf29ce17
+% LTXE-CHAPTER-NAME:	Deprecated Functions
+% ------------------------------------------------------------------------------
+
+\section{Deprecated/Removed Functions}
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+
+	\begin{center}\huge{Chapter 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Deprecated/Removed Functions}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1a5b0bf2-0a03d9a4-25f5eb79-0d3e8d36
+% LTXE-SLIDE-TITLE:		User Passwords
+% LTXE-SLIDE-REFERENCE:	#85026 - salted passwords changes
+% LTXE-SLIDE-REFERENCE:	#85027 - Salted passwords related methods and classes
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{User Passwords}
+
+	\begin{itemize}
+		\item Scheduler task "Convert user passwords to salted hashes"
+			has been \textbf{removed}\newline
+			\smaller
+				(search for values starting with "\texttt{\$}" in database tables
+				\texttt{be\_users} and \texttt{fe\_users} to find user records,
+				which are still in plain text or MD5 hash)
+			\normalsize
+		\item The following function has been marked \textbf{deprecated}:\newline
+			\fontsize{7.5pt}{10}\selectfont
+				\texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					saltedpasswords\textbackslash
+					Utility\textbackslash
+					SaltedPasswordsUtility::isUsageEnabled()}
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1a5b0bf2-0a03d9a4-25f5eb79-0d3e8d36
+% LTXE-SLIDE-TITLE:		Extension lang removed
+% LTXE-SLIDE-REFERENCE:	#84680 - Removed unused locallang files from EXT:lang
+% LTXE-SLIDE-REFERENCE:	#84680 - Move last language files away from ext:lang and remove ext:lang completely
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Extension \texttt{EXT:lang} Removed}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Unused files are removed from extension \texttt{EXT:lang}
+		\item References to translation in \texttt{EXT:lang} will return empty values
+		\item Language files are moved to their respective extension:
+	\end{itemize}
+
+	\begin{lstlisting}
+		locallang_alt_intro.xlf => about/Resources/Private/Language/Modules/locallang_alt_intro.xlf
+		locallang_alt_doc.xlf => backend/Resources/Private/Language/locallang_alt_doc.xlf
+		locallang_login.xlf => backend/Resources/Private/Language/locallang_login.xlf
+		locallang_common.xlf => core/Resources/Private/Language/locallang_common.xlf
+		locallang_core.xlf => core/Resources/Private/Language/locallang_core.xlf
+		locallang_general.xlf => core/Resources/Private/Language/locallang_general.xlf
+		locallang_misc.xlf => core/Resources/Private/Language/locallang_misc.xlf
+		locallang_mod_web_list.xlf => core/Resources/Private/Language/locallang_mod_web_list.xlf
+		locallang_tca.xlf => core/Resources/Private/Language/locallang_tca.xlf
+		locallang_tsfe.xlf => core/Resources/Private/Language/locallang_tsfe.xlf
+		locallang_wizards.xlf => core/Resources/Private/Language/locallang_wizards.xlf
+		locallang_browse_links.xlf => recordlist/Resources/Private/Language/locallang_browse_links.xlf
+		locallang_tcemain.xlf => workspaces/Resources/Private/Language/locallang_tcemain.xlf
+	\end{lstlisting}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1a5b0bf2-0a03d9a4-25f5eb79-0d3e8d36
+% LTXE-SLIDE-TITLE:		TSConfig Related Methods
+% LTXE-SLIDE-REFERENCE:	#84993 - Deprecate some TSconfig related methods
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{TSConfig Related Methods}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item User TSConfig related methods have been marked \textbf{deprecated}:
+
+			\begin{lstlisting}
+				TYPO3\CMS\core\Authentication\BackendUserAuthentication->getTSConfigVal()
+				TYPO3\CMS\core\Authentication\BackendUserAuthentication->getTSConfigProp()
+			\end{lstlisting}
+
+		\item Changed method signatures (no argument allowed anymore):
+
+			\begin{lstlisting}
+				TYPO3\CMS\core\Authentication\BackendUserAuthentication->getTSConfig()
+			\end{lstlisting}
+
+		\item Page TSConfig related methods have been marked \textbf{deprecated}:
+
+			\begin{lstlisting}
+				TYPO3\CMS\backend\Utility\BackendUtility::getModTSconfig()
+				TYPO3\CMS\backend\Utility\BackendUtility::unsetMenuItems()
+				TYPO3\CMS\backend\Tree\View\PagePositionMap->getModConfig()
+				TYPO3\CMS\core\DataHandling\DataHandler->getTCEMAIN_TSconfig()
+			\end{lstlisting}
+
+		\item Properties set to protected and trigger a \textbf{deprecation error} on access:
+
+			\begin{lstlisting}
+				TYPO3\CMS\backend\Tree\View\PagePositionMap->getModConfigCache
+				TYPO3\CMS\backend\Tree\View\PagePositionMap->modConfigStr
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1a5b0bf2-0a03d9a4-25f5eb79-0d3e8d36
+% LTXE-SLIDE-TITLE:		Overriding Page TSConfig
+% LTXE-SLIDE-REFERENCE:	#84982 - Overriding page TSconfig mod. with user TSconfig mod.
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Overriding Page TSConfig}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\smaller\ttfamily}
+
+	\begin{itemize}
+		\item User TSConfig paths that start with "\texttt{mod.}" trigger a PHP
+			\texttt{E\_USER\_DEPRECATED} error and will stop working in TYPO3 v10
+		\item Make sure to prefix the user TSConfig path with "\texttt{page.}"
+			in case a page TSConfig path should be overwritten on user TSConfig
+			level:
+
+			\begin{lstlisting}
+				// before
+				mod.web_list.disableSingleTableView = 1
+
+				// after
+				page.mod.web_list.disableSingleTableView = 1
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1a5b0bf2-0a03d9a4-25f5eb79-0d3e8d36
+% LTXE-SLIDE-TITLE:		URL Handlers
+% LTXE-SLIDE-REFERENCE:	#85124 - Redirecting urlHandler Hook Concept
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{URL Handlers}
+
+	\begin{itemize}
+		\item The URL handler concept introduced in TYPO3 v7 to allow pages
+			to do redirects has been \textbf{deprecated} in favor of using
+			PSR-7/PSR-15 middlewares
+
+		\item Calling the following functions triggers a PHP
+			\texttt{E\_USER\_DEPRECATED} error:
+
+			\begin{itemize}
+				\item \texttt{\$TSFE->initializeRedirectUrlHandlers()}
+				\item \texttt{\$TSFE->redirectToExternalUrl()}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		1a5b0bf2-0a03d9a4-25f5eb79-0d3e8d36
+% LTXE-SLIDE-TITLE:		Miscellaneous
+% LTXE-SLIDE-REFERENCE:	#81686 - Accessing core TypoScript with .txt file extension has been deprecated
+% LTXE-SLIDE-REFERENCE:	#85036 - Removed support for non-namespaced classes in Extbase
+% LTXE-SLIDE-REFERENCE:	#85113 - Legacy Backend Module Routing methods
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Miscellaneous}
+
+	\begin{itemize}
+		\item TypoScript files with "\texttt{.txt}" file extension have been
+			renamed to "\texttt{.typoscript}" and "\texttt{.tsconfig}"
+		\item Installations including core TS files using the old file extension
+			will trigger a PHP \texttt{E\_USER\_DEPRECATED} error
+		\item Non-namespaced classes such as
+			"\texttt{Tx\_Extension\_Controller\_FooController}"\newline
+			are no longer supported and will not work anymore
+		\item The following two methods are \textbf{deprecated}:
+
+			\begin{itemize}
+				\item \texttt{BackendUtility::getModuleUrl()}
+				\item \texttt{UriBuilder->buildUriFromModule()}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		More functions...
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+
+	\vspace{0.6cm}
+	\begin{center}
+		More functions
+	\end{center}
+	\vspace{-0.8cm}
+	\begin{center}
+		have been marked deprecated or removed
+	\end{center}
+	\vspace{-0.8cm}
+	\begin{center}
+		in TYPO3 version 9.3.
+	\end{center}
+	\vspace{-0.6cm}
+	\begin{center}
+		Please see the \href{https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/9.3/Index.html#deprecation}{TYPO3 documentation} for further details.
+	\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
