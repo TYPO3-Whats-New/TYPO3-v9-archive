@@ -1,0 +1,67 @@
+% ------------------------------------------------------------------------------
+% TYPO3 CMS 9 LTS - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% this is a test ...
+
+\documentclass[t]{beamer}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+
+\mode<presentation>
+{
+	\usetheme{typo3slides}
+}
+
+% global variables
+\title{TYPO3 v9 LTS - What's New}
+\subtitle{}
+\author{
+	\centerline{The most important}
+	\centerline{new features, changes and improvements in 66 slides}
+}
+
+\date{\today}
+
+\begin{document}
+
+% select TYPO3 Share font
+\sharefont
+
+% ------------------------------------------------------------------------------
+% Title Slide
+
+\begingroup
+	\setbeamercolor{normal text}{fg=white,bg=typo3orange}
+	\setbeamercolor{title}{fg=white}
+	\setbeamercolor{author}{fg=white}
+	\setbeamertemplate{footline}[default]
+	\begin{frame}
+		\titlepage
+	\end{frame}
+\endgroup
+
+% ------------------------------------------------------------------------------
+% Chapters
+
+\include{Chapters/Introduction}
+\include{Chapters/PageBasedUrlHandling}
+\include{Chapters/SearchEngineOptimization}
+\include{Chapters/SiteManagement}
+\include{Chapters/BackendUserInterface}
+\include{Chapters/ConditionalVariants}
+\include{Chapters/AdminPanel}
+\include{Chapters/PrivacyAndSecurity}
+\include{Chapters/InDepthChanges}
+%% \include{Chapters/TypoScript}
+\include{Chapters/DeprecatedRemovedFunctions}
+\include{Chapters/InstallationAndUpgrade}
+\include{Chapters/SourcesAndAuthors}
+
+% ------------------------------------------------------------------------------
+\end{document}

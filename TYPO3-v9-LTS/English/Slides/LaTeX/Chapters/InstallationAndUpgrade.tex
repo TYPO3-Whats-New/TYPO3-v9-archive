@@ -1,0 +1,108 @@
+% ------------------------------------------------------------------------------
+% TYPO3 v9 LTS - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\section{Installation and Upgrade}
+\begin{frame}[fragile]
+	\frametitle{Installation and Upgrade}
+
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Installation and Upgrade}}\end{center}
+	\begin{center}\large{\textit{There is no better time to check out TYPO3 v9 LTS}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Classic Installation
+
+\begin{frame}[fragile]
+	\frametitle{Installation and Upgrade}
+	\framesubtitle{Classic Installation Method}
+
+	\begin{itemize}
+		\item Official \textit{classic} installation procedure under Linux/Mac OS X\newline
+			(DocumentRoot for example \texttt{/var/www/site/htdocs}):
+\begin{lstlisting}
+$ cd /var/www/site/
+$ wget --content-disposition get.typo3.org/9
+$ tar xzf typo3_src-9.5.0.tar.gz
+$ cd htdocs
+$ ln -s ../typo3_src-9.5.0 typo3_src
+$ ln -s typo3_src/index.php
+$ ln -s typo3_src/typo3
+$ touch FIRST_INSTALL
+\end{lstlisting}
+
+		\item Symbolic links under Microsoft Windows:
+
+			\begin{itemize}
+				\item Use \texttt{junction} under Windows XP/2000
+				\item Use \texttt{mklink} under Windows Vista and Windows 7 and higher
+			\end{itemize}
+
+	\end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Composer Installation
+
+\begin{frame}[fragile]
+	\frametitle{Installation and Upgrade}
+	\framesubtitle{Installation Using \texttt{composer}}
+
+	\begin{itemize}
+		\item Installation using \textit{composer} under Linux, Mac OS X and Windows 10:
+
+\begin{lstlisting}
+$ cd /var/www/site/
+$ composer create-project typo3/cms-base-distribution typo3 ^9
+\end{lstlisting}
+
+		\item Alternatively, create your custom \texttt{composer.json} file and run:
+
+\begin{lstlisting}
+$ composer install
+\end{lstlisting}
+
+			Further details and examples for \texttt{composer.json} files are available at:\newline
+			\smaller
+				\href{https://composer.typo3.org}{https://composer.typo3.org}
+			\normalsize
+
+	\end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Upgrade to TYPO3 v9 LTS
+
+\begin{frame}[fragile]
+	\frametitle{Installation and Upgrade}
+	\framesubtitle{Upgrade to TYPO3 v9 LTS}
+
+	\begin{itemize}
+		\item Upgrades only possible from TYPO3 v8 LTS
+		\item TYPO3 < v8 LTS should be updated to TYPO3 version 8.7 first
+	\end{itemize}
+
+	\begin{itemize}
+
+		\item Upgrade instructions:\newline
+			\smaller\url{https://wiki.typo3.org/Upgrade#Upgrading_to_9.5_Long_Term_Support}\normalsize
+		\item Official TYPO3 guide "TYPO3 Installation and Upgrading":
+			\smaller\url{https://docs.typo3.org/typo3cms/InstallationGuide}\normalsize
+		\item General approach:
+			\begin{itemize}
+				\item Check minimum system requirements \small(PHP, MySQL, etc.)
+				\item Review \textbf{deprecation\_*.log} in old TYPO3 instance
+				\item Update all extensions to the latest compatible version
+				\item Deploy new sources and run Install Tool -> Upgrade Wizard
+			\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

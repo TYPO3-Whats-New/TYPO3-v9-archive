@@ -1,0 +1,66 @@
+% ------------------------------------------------------------------------------
+% TYPO3 v9 LTS - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\section{Conditional Variants}
+\begin{frame}[fragile]
+	\frametitle{Conditional Variants}
+
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Conditional Variants}}\end{center}
+	\begin{center}\large{\textit{New feature for form elements}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #84133 - Introduce variants
+
+\begin{frame}[fragile]
+	\frametitle{Conditional Variants}
+	\framesubtitle{Conditional Variants in \texttt{EXT:form}}
+
+	\begin{itemize}
+		\item New feature for extension "Forms": \textit{conditional variants}
+		\item Variants can contain conditions and allow changing properties of a
+			form element
+		\item This makes it possible to manipulate form element values,
+			validator and finisher options, etc. based on conditions
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #84133 - Introduce variants
+
+\begin{frame}[fragile]
+	\frametitle{Conditional Variants}
+	\framesubtitle{Conditional Variants in \texttt{EXT:form}}
+
+	\begin{itemize}
+		\item Typical use cases are for example:
+
+			\begin{itemize}
+				\item Translate form element values depending on the current
+					frontend language
+				\item Set and remove validators depending on the value of
+					another form element
+				\item Set finisher values depending on the value of a form element.
+				\item Hide a form element in certain finishers and on the summary page.
+				\item Hide entire pages in the workflow depending on the value of a
+					form element.
+				\item and many more...
+			\end{itemize}
+
+		\item \href{https://docs.typo3.org/typo3cms/extensions/form}{Official documentation}
+			contains further details and examples
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
