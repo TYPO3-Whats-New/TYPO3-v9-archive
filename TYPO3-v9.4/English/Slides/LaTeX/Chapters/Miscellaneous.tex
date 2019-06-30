@@ -1,0 +1,53 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\section{Miscellaneous}
+\begin{frame}[fragile]
+	\frametitle{Miscellaneous}
+
+	\begin{center}\huge{Chapter 5:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Miscellaneous}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85026 - Merge ext:saltedpasswords into core
+%
+% #85027 Remove saltedpasswords FE.enabled
+% #85683 Drop salted passwords configuration options
+% #85703 Merge saltedpasswords felogin hook into felogin
+% #85761 Merge salted passwords auth service into default service
+% #85804 Password hash configuration as preset
+% #85833 Merge salted passwords extension into core
+
+\begin{frame}[fragile]
+	\frametitle{Miscellaneous}
+	\framesubtitle{System Extension "Salted Passwords"}
+
+	\begin{itemize}
+        \item System extension \texttt{EXT:saltedpasswords} is a mandatory
+            requirement since TYPO3 version 6.2
+		\item It has been refactored and merged into the TYPO3 core now
+
+		\item This involved several tasks:
+
+			\begin{itemize}
+		        \item Password bulk update task removed from Scheduler
+				\item Salted passwords configuration options removed
+				\item Hook in "felogin" removed when user resets password
+				\item authUserBE/authUserFE moved to default authentication service
+				\item Password hash configuration in Install Tool reworked
+				\item Related methods marked deprecated
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

@@ -1,0 +1,52 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (French Version)
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	French
+% ------------------------------------------------------------------------------
+
+\section{Divers}
+\begin{frame}[fragile]
+	\frametitle{Divers}
+
+	\begin{center}\huge{Chapitre 5~:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Divers}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85026 - Merge ext:saltedpasswords into core
+%
+% #85027 Remove saltedpasswords FE.enabled
+% #85683 Drop salted passwords configuration options
+% #85703 Merge saltedpasswords felogin hook into felogin
+% #85761 Merge salted passwords auth service into default service
+% #85804 Password hash configuration as preset
+% #85833 Merge salted passwords extension into core
+
+\begin{frame}[fragile]
+	\frametitle{Divers}
+	\framesubtitle{Extension système «~Salted Passwords~»}
+
+	\begin{itemize}
+        \item L'extension système \texttt{EXT:saltedpasswords} est un
+        	prérequis obligatoire depuis TYPO3 version 6.2
+		\item Elle a été réécrite et fusionnée dans le cœur de TYPO3
+
+		\item De nombreuses tâches ont été requises~:
+
+			\begin{itemize}
+		        \item Retrait de la tâche de mise à jour des mots de passe
+				\item Retrait des options de configuration de Salted passwords
+				\item Retrait du Hook dans «~felogin~» lors de la réinitialisation du mot de passe
+				\item authUserBE/authUserFE déplacés dans le service d'authentification par défaut
+				\item Configuration de l'empreinte de mot de passe dans l'install tool retravaillé
+				\item Méthodes liées dépréciées
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

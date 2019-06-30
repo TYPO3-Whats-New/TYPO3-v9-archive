@@ -1,0 +1,52 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (Dutch Version)
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	Dutch
+% ------------------------------------------------------------------------------
+
+\section{Diversen}
+\begin{frame}[fragile]
+	\frametitle{Diversen}
+
+	\begin{center}\huge{Hoofdstuk 5:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Diversen}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85026 - Merge ext:saltedpasswords into core
+%
+% #85027 Remove saltedpasswords FE.enabled
+% #85683 Drop salted passwords configuration options
+% #85703 Merge saltedpasswords felogin hook into felogin
+% #85761 Merge salted passwords auth service into default service
+% #85804 Password hash configuration as preset
+% #85833 Merge salted passwords extension into core
+
+\begin{frame}[fragile]
+	\frametitle{Diversen}
+	\framesubtitle{Systeemextensie "Salted Passwords"}
+
+	\begin{itemize}
+        \item Systeemextensie \texttt{EXT:saltedpasswords} is een verplichting
+        	sinds TYPO3 versie 6.2
+		\item Het is herbouwd en nu in de TYPO3 core opgenomen
+
+		\item Dit betrof diverse taken:
+
+			\begin{itemize}
+		        \item Massaal bijwerken van wachtwoorden is verwijderd uit de Taakplanner
+				\item Configuratieopties van Salted password zijn verwijderd
+				\item Hook in "felogin" wanneer gebruiker wachtwoord wijzigt is verwijderd
+				\item authUserBE/authUserFE verplaatst naar standaard authenticatieservice
+				\item Configuratie van wachtwoord hash in de Install Tool is herbouwd
+				\item Gerelateerde functies zijn als verouderd aangemerkt
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

@@ -1,0 +1,52 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (German Version)
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	German
+% ------------------------------------------------------------------------------
+
+\section{Sonstiges}
+\begin{frame}[fragile]
+	\frametitle{Sonstiges}
+
+	\begin{center}\huge{Kapitel 5:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Sonstiges}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85026 - Merge ext:saltedpasswords into core
+%
+% #85027 Remove saltedpasswords FE.enabled
+% #85683 Drop salted passwords configuration options
+% #85703 Merge saltedpasswords felogin hook into felogin
+% #85761 Merge salted passwords auth service into default service
+% #85804 Password hash configuration as preset
+% #85833 Merge salted passwords extension into core
+
+\begin{frame}[fragile]
+	\frametitle{Sonstiges}
+	\framesubtitle{Die Systemerweiterung "Salted Passwords"}
+
+	\begin{itemize}
+        \item Seit der TYPO3 Version 6.2 ist die Erweiterung \texttt{EXT:saltedpasswords}
+            eine zwingende Voraussetzung
+		\item Die Extension wurde überarbeitet und in den TYPO3-Core integriert
+
+		\item Dies beinhaltet mehrere Tasks:
+
+			\begin{itemize}
+		        \item Passwort-Bulk-Update-Task wurde aus dem Scheduler entfernt
+				\item Salted Passwords Konfigurationsoptionen wurden entfernt
+				\item Der Hook "felogin" wird entfern, wenn der User dasPasswort zurücksetzt
+				\item authUserBE/authUserFE wurde zum Standardauthentifizierungsdienst geschoben
+				\item Password-Hash-Konfiguration im Install Tool wurde überarbeitet
+				\item Zugehörige Methoden wurden als veraltet markeiert
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

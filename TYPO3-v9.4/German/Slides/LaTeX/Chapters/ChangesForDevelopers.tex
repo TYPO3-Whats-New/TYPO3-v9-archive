@@ -1,0 +1,224 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (German Version)
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	German
+% ------------------------------------------------------------------------------
+
+\section{Änderungen für Entwickler}
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+
+	\begin{center}\huge{Kapitel 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Änderungen für Entwickler}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85389 - Introduce Context API for consistent data handling
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Kontext-API}
+
+	\begin{itemize}
+		\item Eine neue Kontext-API wurde in der TYPO3 Version 9.4 eingeführt
+		\item Hauptziel dieses Konzepts ist globale Variablen zu zentralisieren
+		\item Der API zielt darauf ab, global verfügbare Objekte (z.B.
+			\texttt{TSFE}, \texttt{sys\_page}, \texttt{BE\_USER}, usw.) zu ersezten
+			und sie in einer logischen Weise zu strukturieren und verfügbar zu machen
+		\item Anstatt ein vollständiges Objekt (z.B. das Objekt the \texttt{BE\_USER})
+			 anzuzeigen , die "aspects" enthalten Eigenschaften, die relevant
+			und erforderlich sind
+		\item Erweiterungsentwickler können Aspekte zum aktuellen Kontext hinzufügen
+		\item Für weitere Details und Beispiele zur Verwendung der API bitte die \href{https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/9.4/Feature-85389-ContextAPIForConsistentDataHandling.rst}{Dokumentation}
+			prüfen
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85590 - Hooks for DatabaseRecordList CSV actions
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{CSV-Dateien individualisieren}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die Ausgabe beim Exportieren von Datenbankeinträgen als CSV kann
+			vor dem Start des Downloads manipuliert werden.
+		\item Dies wird durch folgenden zwei Hooks ermöglicht:
+
+			\begin{itemize}
+			\smaller
+				\item \texttt{customizeCsvHeader} - um das Header anzupassen
+				\item \texttt{customizeCsvRow} - um eine einzelne Zeile anzupassen
+			\end{itemize}
+
+		\item Verwendungsbeispiele:
+
+			\begin{lstlisting}
+use \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList;
+
+$hookName = DatabaseRecordList::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$hookName]['customizeCsvRow'][] =
+  \Vendor\ExtName\Hooks\CsvTest::class . '->customizeCsvRow';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$hookName]['customizeCsvHeader'][] =
+  \Vendor\ExtName\Hooks\CsvTest::class . '->customizeCsvHeader';
+\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85828 - Move symfony expression language handling into EXT:core
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Symfony Ausdruckssprache}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die \href{https://symfony.com/doc/current/components/expression_language/syntax.html}{Symfony Ausdruckssprache}
+			 wurde von \texttt{EXT:form} in den TYPO3-Core verschoben
+		\item Durch die Verschiebung in den Core, ist nun diese Ausdruckssprache 
+			auch in anderen Bereichen verfügbar
+		\item Der TYPO3-Core enthält die Klasse \texttt{DefaultProvider}, die direkt verwendet werden
+			kann (siehe Beispiel unten). Benutzerdefinierte Implementierungen können
+			die Klasse \texttt{AbstractProvider} erweitern
+
+			\begin{lstlisting}
+use \TYPO3\CMS\Core\ExpressionLanguage\DefaultProvider;
+use \TYPO3\CMS\Core\ExpressionLanguage\Resolver;
+
+$provider = GeneralUtility::makeInstance(DefaultProvider::class);
+$conditionResolver = GeneralUtility::makeInstance(Resolver::class, $provider);
+$conditionResolver->evaluate('1 < 2'); // result is true
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85356 - Add support to CurrencyViewHelper for mdash
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{"Currency" ViewHelper}
+
+%	% decrease font size for code listing
+%	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Ein Bindestrich kann anstelle von \texttt{00} im 
+			Currency ViewHelper verwendet werden
+		\item Die Option \texttt{useDash="1"} ermöglicht diese Funktion
+		\item Folgendes Beispiel stellt das Ergebnis \texttt{123.-} dar
+
+			\begin{lstlisting}
+<f:format.currency useDash="1">123.00</f:format.currency>
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85699 - Deprecate methods in PageRepository
+% #85727 - Move DatabaseIntegrityCheck to EXT:lowlevel
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Änderungen in der \texttt{PageRepository} Klasse}
+
+	\begin{itemize}
+		\item Folgende Methoden wurden als \textit{internal} markiert:
+
+			\begin{itemize}
+			\smaller
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Frontend\textbackslash
+					Page\textbackslash
+					PageRepository::getMovePlaceholder()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Frontend\textbackslash
+					Page\textbackslash
+					PageRepository::movePlhOL()}
+			\end{itemize}
+
+		\item Folgende Klasse wurde aus dem TYPO3-Core in den
+			Systemerweiterung \texttt{lowlevel} verschoben:
+
+			\begin{itemize}
+			\smaller
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Core\textbackslash
+					Integrity\textbackslash
+					DatabaseIntegrityCheck}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85801 - Deprecate 2nd argument of GeneralUtility::explodeUrl2Array
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Die Methode \texttt{GeneralUtility::explodeUrl2Array()}}
+
+	\begin{itemize}
+		\item Zweites Argument der Methode
+			\smaller
+				\texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Core\textbackslash
+					Utility\textbackslash
+					GeneralUtility::explodeUrl2Array()}\newline
+			\normalsize
+			wurde als veraltet markiert und sollte nicht mehr verwendet werden
+
+		\item Wenn gesetzt, der String des ersten Arguments wurde in ein mehrdimensionales Arrey geparst
+			falls in Variablennamen eckige Klammern verwendet werden
+		\item Dies kann vereinfacht werden mit Hilfe der \texttt{parse\_str()}
+			Methode:
+
+			\begin{lstlisting}
+$result = [];
+parse_str($queryParametersAsString, $result);
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #84280 - Make unit tests notice free
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Unit Tests}
+
+	\begin{itemize}
+		\item TYPO3-Core Unit Tests lösen nicht mehr eine \texttt{E\_NOTICE} Fehlermeldung aus
+		\item Als Konsequenz wurde die Flagge \texttt{\$suppressNotices = true} entfernt und 
+			das Testrahmenwerk wurde auf Version 4.4.0 erhöht
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

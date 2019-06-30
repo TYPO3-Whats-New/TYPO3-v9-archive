@@ -1,0 +1,277 @@
+% ------------------------------------------------------------------------------
+% TYPO3 - What's New - Test/Example Chapter
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	German
+% ------------------------------------------------------------------------------
+% Test/Example Chapter
+% ------------------------------------------------------------------------------
+
+\section{Test Chapter}
+\begin{frame}[fragile]
+	\frametitle{Test Chapter}
+
+	\begin{center}\huge{Test Chapter:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{LaTeX Styles, Formatting, etc.}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Font Styles (Formatting)
+% ------------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Test Chapter}
+	\framesubtitle{Font Styles}
+
+	\begin{itemize}
+		\item \emph{emphasis}
+		\item \textsf{Sans}
+		\item \texttt{teletypefont}
+		\item \textit{italic}
+		\item \underline{underline}
+		\item \uppercase{uppercase}
+		\item \textbf{bold}
+		\item \alert{alert}
+		\item
+			\begingroup
+				\color{typo3orange}
+				typo3orange
+			\endgroup
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Links And Levels
+% ------------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Test Chapter}
+	\framesubtitle{Links}
+
+	\begin{itemize}
+		\item Item
+		\item Item with link: \url{https://example.com}
+		\item Item with \href{https://example.com}{link label}
+
+		\item First level
+		\begin{itemize}
+			\item Second level
+			\begin{itemize}
+				\item Third level
+			\end{itemize}
+		\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Item List
+% ------------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Test Chapter}
+	\framesubtitle{Item List}
+
+	\begin{itemize}
+		\item Item 1
+		\item Item 2
+		\item Item 3
+		\item Item 4
+		\item Item 5
+		\item Item 6
+		\item Item 7
+		\item Item 8
+		\item Item 9
+		\item Item 10
+		\item Item 11
+		\item Item 12
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Two Columns
+% ------------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Test Chapter}
+	\framesubtitle{Two Columns}
+
+	\begin{columns}[T]
+
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item Item 1
+				\item Item 2
+				\item Item 3
+				\item Item 4
+				\item Item 5
+				\item Item 6
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item Item 7
+				\item Item 8
+				\item Item 9
+				\item Item 10
+				\item Item 11
+				\item Item 12
+			\end{itemize}
+		\end{column}
+
+	\end{columns}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Code Snippet
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Test Chapter}
+	\framesubtitle{Code Snippets}
+
+	\begin{itemize}
+		\item code outside a bullet list:
+	\end{itemize}
+
+	\begin{lstlisting}
+		page = PAGE
+		page.10 = TEXT
+		page.10.value = Hello World
+	\end{lstlisting}
+
+	\begin{itemize}
+		\item code inside a bullet list (indented):
+		\begin{lstlisting}
+			page = PAGE
+			page.10 = TEXT
+			page.10.value = Hello World
+		\end{lstlisting}
+	\end{itemize}
+
+	\begin{itemize}
+		\item inline code: \lstinline!var i:integer;!
+		\item inline code: \texttt{var i:integer}
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Code Snippet
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Test Chapter}
+	\framesubtitle{Code Snippets}
+
+	\begin{itemize}
+		\item custom font sizes (if not avoidable):
+
+		\lstset{
+			basicstyle=\large\selectfont\ttfamily
+		}
+
+		\begin{lstlisting}
+			page = PAGE
+			page.10 = TEXT
+			page.10.value = Hello World
+		\end{lstlisting}
+
+		\lstset{
+			basicstyle=\small\selectfont\ttfamily
+		}
+
+		\begin{lstlisting}
+			page = PAGE
+			page.10 = TEXT
+			page.10.value = Hello World
+		\end{lstlisting}
+
+		\lstset{
+			basicstyle=\fontsize{7}{9}\selectfont\ttfamily
+		}
+
+		\begin{lstlisting}
+			page = PAGE
+			page.10 = TEXT
+			page.10.value = Hello World
+		\end{lstlisting}
+
+		\lstset{
+			basicstyle=\tiny\ttfamily
+		}
+
+		\begin{lstlisting}
+			page = PAGE
+			page.10 = TEXT
+			page.10.value = Hello World
+		\end{lstlisting}
+
+	\end{itemize}
+
+%	\tabto{1cm} \texttt{custom indentation: 1cm from left}\newline
+%	\tabto{1.5cm} \texttt{custom indentation: 1.5cm from left}\newline
+%	\tabto{2cm} \texttt{custom indentation: 2cm from left}\newline
+%	\tabto{2.5cm} \texttt{custom indentation: 2.5cm from left}\newline
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Slide Without Bullet Points
+% ------------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Test Chapter}
+	\framesubtitle{A Slide Without Bullet Points}
+
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+	non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+	%\breakingchange{BREAKING CHANGE!}
+	\breakingchange
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% Example: Text Sizes
+% ------------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Test Chapter}
+	\framesubtitle{Text Sizes}
+
+	\begin{itemize}
+		\item Default text size ("normalsize"):\newline
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+		\item Small text size:\newline
+			\small
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			\normalsize
+
+		\item Smaller text size:\newline
+			\smaller
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			\normalsize
+
+		\item Tiny text size:\newline
+			\tiny
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			\normalsize
+
+	\end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------------------------

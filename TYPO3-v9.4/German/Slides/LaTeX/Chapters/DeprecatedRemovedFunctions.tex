@@ -1,0 +1,287 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (German Version)
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	German
+% ------------------------------------------------------------------------------
+
+\section{Veraltete/Entfernte Funktionen}
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+
+	\begin{center}\huge{Kapitel 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Veraltete/Entfernte Funktionen}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #65578 - Deprecate enableConcatenateFiles
+% #84414 - BackendUtility::shortcutExists
+% #85858 - Deprecate GeneralUtility::clientInfo()
+% #85699 - Deprecate methods in PageRepository
+% #85759 - Deprecate GeneralUtility::getHostName
+% #85760 - Deprecate GeneralUtility::unQuoteFilenames
+% #85394 - Deprecate TYPO3\CMS\Core\Database\PdoHelper
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Veraltete Optionen und Funktionen (1)}
+
+	\begin{itemize}
+		\item Die folgenden zwei TypoScript-Optionen wurden als veraltet markiert:
+
+			\begin{itemize}\smaller
+                \item \texttt{config.enableConcatenateFiles}
+                \item \texttt{config.concatenateJsAndCss}
+            \end{itemize}
+
+        	\smaller
+				Der letzterer wurde durch \texttt{concatenateCss} bzw
+					\texttt{concatenateJs} ersetzt
+			\normalsize
+
+		\item Die folgenden Methoden / Klassen wurden als veraltet markiert:
+
+			\begin{itemize}\smaller
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Backend\textbackslash
+					Utility\textbackslash
+					BackendUtility::shortcutExists()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Core\textbackslash
+					Utility\textbackslash
+					GeneralUtility::clientInfo()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Core\textbackslash
+					Utility\textbackslash
+					GeneralUtility::getHostName()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Core\textbackslash
+					Utility\textbackslash
+					GeneralUtility::unQuoteFilenames()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Frontend\textbackslash
+					Page\textbackslash
+					PageRepository::getRecordsByField()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Frontend\textbackslash
+					Page\textbackslash
+					PageRepository::getFileReferences()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Core\textbackslash
+					Database\textbackslash
+					PdoHelper}
+
+			\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85701 - Deprecate methods in ModuleTemplate
+% #85707 - Deprecate LoginFramesetController
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Veraltete Optionen und Funktionen (2)}
+
+	\begin{itemize}
+		\item Die folgenden Methoden / Klassen wurden als veraltet markiert:
+
+			\begin{itemize}\smaller
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Backend\textbackslash
+					Template\textbackslash
+					ModuleTemplate::icons()}
+
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Backend\textbackslash
+					Template\textbackslash
+					ModuleTemplate::loadJavascriptLib()}
+
+			\end{itemize}
+
+		\item Folgende Klasse wurde als veraltet markiert und die Funktionalität der Klasse wurde durch eine
+			Anfrage an \texttt{index.php?loginRefresh=1} ersetzt:
+			
+			\begin{itemize}\smaller
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Backend\textbackslash
+					Controller\textbackslash
+					LoginFramesetController}
+			\end{itemize}\smaller
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85793 - Deprecate several constants from SystemEnvironmentBuilder
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Veraltete Konstanten (1)}
+
+	\begin{itemize}
+		\item Folgende Konstanten sind veraltet (1/2)\newline
+			und sollten nicht mehr verwendet werden:
+
+			\begin{itemize}\smaller
+				\item \texttt{TYPO3\_URL\_MAILINGLISTS}
+				\item \texttt{TYPO3\_URL\_DOCUMENTATION}
+				\item \texttt{TYPO3\_URL\_DOCUMENTATION\_TSREF}
+				\item \texttt{TYPO3\_URL\_DOCUMENTATION\_TSCONFIG}
+				\item \texttt{TYPO3\_URL\_CONSULTANCY}
+				\item \texttt{TYPO3\_URL\_CONTRIBUTE}
+				\item \texttt{TYPO3\_URL\_SECURITY}
+				\item \texttt{TYPO3\_URL\_DOWNLOAD}
+				\item \texttt{TYPO3\_URL\_SYSTEMREQUIREMENTS}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85793 - Deprecate several constants from SystemEnvironmentBuilder
+% #85285 - Replace last occurrences of PATH_site with Environment API
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Veraltete Konstanten (2)}
+
+	\begin{itemize}
+		\item Folgende Konstanten sind veraltet(2/2)\newline
+			und sollten nicht mehr verwendet werden:
+
+			\begin{itemize}\smaller
+				\item \texttt{NUL}\tabto{3cm}(use \texttt{"\textbackslash 0"} instead)
+				\item \texttt{TAB}\tabto{3cm}(use \texttt{"\textbackslash t"} instead)
+				\item \texttt{SUB}\tabto{3cm}(use \texttt{chr(26)} instead)
+				\item \texttt{PATH\_thisScript}\tabto{3cm}(use \texttt{Environment::getCurrentScript()} instead)
+				\item \texttt{PATH\_site}\tabto{3cm}(use \texttt{Environment::getPublicPath().'/'} instead)
+			\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85878 - Deprecate EidUtility and methods within TSFE
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{\texttt{EidUtility} Klasse und \texttt{TSFE} Methoden}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Folgende Klasse wurde als veraltet markiert:\newline
+			\smaller\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Frontend\textbackslash
+				Utility\textbackslash
+				EidUtility}\normalsize
+
+		\item Folgende Methoden wurden als veraltet markiert:\newline
+			\smaller\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Frontend\textbackslash
+				Controller\textbackslash
+				TypoScriptFrontendController}\normalsize
+
+				\begin{itemize}\smaller
+					\item \texttt{TypoScriptFrontendController::initFEuser()}
+					\item \texttt{TypoScriptFrontendController::storeSessionData()}
+					\item \texttt{TypoScriptFrontendController::previewInfo()}
+					\item \texttt{TypoScriptFrontendController::hook\_eofe()}
+					\item \texttt{TypoScriptFrontendController::addTempContentHttpHeaders()}
+					\item \texttt{TypoScriptFrontendController::sendCacheHeaders()}
+				\end{itemize}
+
+			\item Folgender Hook wurde als veraltet markiert:
+
+				\begin{lstlisting}
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_previewInfo']
+				\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85004 - Deprecate methods in ReflectionService
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Die Klasse \texttt{ReflectionService}}
+
+	\begin{itemize}
+		\item Folgende Methoden wurden als veraltet markiert:\newline
+			\smaller\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Extbase\textbackslash
+				Reflection\textbackslash
+				ReflectionService}\normalsize
+
+				\begin{itemize}\smaller
+					\item \texttt{ReflectionService::getClassTagsValues()}
+					\item \texttt{ReflectionService::getClassTagValues()}
+					\item \texttt{ReflectionService::getClassPropertyNames()}
+					\item \texttt{ReflectionService::hasMethod()}
+					\item \texttt{ReflectionService::getMethodTagsValues()}
+					\item \texttt{ReflectionService::getMethodParameters()}
+					\item \texttt{ReflectionService::getPropertyTagsValues()}
+					\item \texttt{ReflectionService::getPropertyTagValues()}
+					\item \texttt{ReflectionService::isClassTaggedWith()}
+					\item \texttt{ReflectionService::isPropertyTaggedWith()}
+				\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% More functions have been deprecated/removed...
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+
+	\vspace{0.6cm}
+	\begin{center}
+		Viele weitere Funktionen
+	\end{center}
+	\vspace{-0.8cm}
+	\begin{center}
+		wurden in der TYPO3 Version 9.4
+	\end{center}
+	\vspace{-0.8cm}
+	\begin{center}
+		als veraltet markiert oder entfernt.
+	\end{center}
+	\vspace{-0.6cm}
+	\begin{center}
+		Bitte die
+\href{https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/9.4/Index.html#deprecation}{TYPO3 Dokumentation} prüfen für weitere Informationen.
+	\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

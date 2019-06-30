@@ -1,0 +1,76 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.4 - What's New (German Version)
+%
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	German
+% ------------------------------------------------------------------------------
+
+\documentclass[t]{beamer}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+
+\mode<presentation>
+{
+	\usetheme{typo3slides}
+}
+
+% global variables
+\title{TYPO3 Version 9.4 - What's New}
+\subtitle{Summary of the new features, changes and improvements}
+\author{
+	\centerline{Created by:}
+	\centerline{Michael Schams}
+}
+
+\date{\today}
+
+\begin{document}
+
+% select TYPO3 Share font
+\sharefont
+
+% ------------------------------------------------------------------------------
+% Title Page
+% ------------------------------------------------------------------------------
+
+\begingroup
+	\setbeamercolor{normal text}{fg=white,bg=typo3orange}
+	\setbeamercolor{title}{fg=white}
+	\setbeamercolor{author}{fg=white}
+	\setbeamertemplate{footline}[default]
+	\begin{frame}
+		\titlepage
+	\end{frame}
+\endgroup
+
+% ------------------------------------------------------------------------------
+% Table of Contents
+% ------------------------------------------------------------------------------
+
+\section*{TYPO3 Version 9.4 - What's New}
+\begin{frame}[fragile]
+	\frametitle{Chapter Overview}
+	\framesubtitle{Chapter Overview}
+
+	\tableofcontents
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+
+\include{Chapters/Introduction}
+\include{Chapters/BackendUserInterface}
+\include{Chapters/ChangesForIntegrators}
+\include{Chapters/ChangesForDevelopers}
+\include{Chapters/DeprecatedRemovedFunctions}
+\include{Chapters/Miscellaneous}
+\include{Chapters/SourcesAndAuthors}
+
+% ------------------------------------------------------------------------------
+
+%\include{Chapters/TestChapter}
+
+% ------------------------------------------------------------------------------
+\end{document}
