@@ -1,0 +1,337 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.5 - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\section{Deprecated/Removed Functions}
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Deprecated/Removed Functions}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #84196 - Backend controller actions do not receive prepared response
+% #85970 - FILE content object
+% #85980 - Deprecate @internal annotation in extbase commands
+% #83094 - Annotation @flushesCaches
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Deprecated Options and Functions (1)}
+
+	\begin{itemize}
+		\item Second argument to backend and eID controller actions has been
+			marked deprecated (controllers should create a response object
+			implementing
+			\texttt{Psr\textbackslash
+				Http\textbackslash
+				Message\textbackslash
+				ResponseInterface})
+		\item TypoScript cObject \texttt{FILE} is error-prone and has been
+			marked deprecated
+		\item Extbase misuses the \texttt{@internal} annotation and therefore
+			this annotation has been marked  deprecated without a replacement
+		\item Annotation \texttt{@flushesCaches} has been marked deprecated
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86178 - Class ElementBrowserFramesetController
+% #86182 - Protected TaskModuleController
+% #86179 - Protected render() method in BackendController
+% #86225 - Classes BaseScriptClass and AbstractFunctionModule
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Deprecated Options and Functions (2)}
+
+	\begin{itemize}
+		\item The following classes have been marked deprecated:
+			\smaller
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Recordlist\textbackslash
+				Controller\textbackslash
+				ElementBrowserFramesetController}
+			\newline
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Backend\textbackslash
+				Module\textbackslash
+				BaseScriptClass}
+			\newline
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Backend\textbackslash
+				Module\textbackslash
+				AbstractFunctionModule}
+			\normalsize
+
+		\item Class
+			\smaller
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Taskcenter\textbackslash
+				Controller\textbackslash
+				TaskModuleController}
+			\normalsize\newline
+			no longer inherits
+			\smaller
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Backend\textbackslash
+				Module\textbackslash
+				BaseScriptClass}
+			\normalsize
+
+		\item Single task classes should no longer expect to have an instance of
+			the \texttt{TaskModuleController} set as \texttt{\$GLOBALS['SOBE']}
+
+		\item The visibility of the following method has been changed\newline
+			from \texttt{public} to \texttt{protected}:
+
+			\smaller
+			\texttt{TYPO3\textbackslash
+				CMS\textbackslash
+				Backend\textbackslash
+				Controller\textbackslash
+				BackendController->render()}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86270 - config.tx_extbase.objects and plugin.tx_%plugin%.objects
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Deprecated Options and Functions (3)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item The following configuration options have been marked deprecated:
+
+			\begin{itemize}
+				\item \texttt{config.tx\_extbase.objects}
+				\item \texttt{plugin.tx\_\%plugin\%.objects}
+			\end{itemize}
+
+		\item The following hooks have been marked deprecated\newline
+			\small
+				(PSR-15 middleware concept offers better implementation options)
+			\normalsize
+
+\begin{lstlisting}
+$GLOBALS ... ['tslib/class.tslib_fe.php']['tslib_fe-PostProc']
+$GLOBALS ... ['tslib/class.tslib_fe.php']['connectToDB']
+$GLOBALS ... ['tslib/class.tslib_fe.php']['initFEuser']
+$GLOBALS ... ['tslib/index_ts.php']['preBeUser']
+$GLOBALS ... ['tslib/index_ts.php']['postBeUser']
+$GLOBALS ... ['tslib/class.tslib_fe.php']['checkAlternativeIdMethods-PostProc']
+$GLOBALS ... ['tslib/index_ts.php']['preprocessRequest']
+\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86163 - TCA type="user" without renderType
+% #86288 - FrontendBackendUserAuthentication methods
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Deprecated Options and Functions (4)}
+
+	\begin{itemize}
+		\item The following TCA properties on \texttt{type="user"} config types
+			have been deprecated and should not be used anymore:
+
+			\begin{itemize}
+				\item \texttt{userFunc}
+				\item \texttt{parameters}
+				\item \texttt{noTableWrapping}
+			\end{itemize}
+
+		\item Some methods in the following class have been marked deprecated
+			\small
+				\texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Backend\textbackslash
+					FrontendBackendUserAuthentication}
+			\normalsize
+
+			\begin{itemize}
+				\item \texttt{checkBackendAccessSettingsFromInitPhp()}
+				\item \texttt{extPageReadAccess()}
+				\item \texttt{extGetTreeList()}
+				\item \texttt{extGetLL()}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86323 - Configuration key "site" has been deprecated in YAML site configuration
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Site configuration}
+
+	\begin{itemize}
+		\item Site configuration in YAML file resides directly in the root now
+		\item Previously used key "\texttt{site}" became obsolete and triggers
+			a deprecation message when used
+		\item Migration:
+
+			\begin{itemize}
+				\item Edit file \texttt{config.yaml}, remove key "\texttt{site}"
+					and move configuration up one level, or:
+				\item Save site configuration via the backend module
+			\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85031 - Protected ImportExportController
+% #86047 - TSFE properties / methods and change visibility
+% #86180 - Protected methods in SetupModuleController
+% #86182 - Protected TaskModuleController
+% #86184 - Protected methods in ReportController
+% #86192 - Protected methods in ElementBrowserController
+% #86197 - Protected FileListController
+% #86198 - Protected RecordListController
+% #86193 - Protect methods in AbstractLinkBrowserController
+% #86320 - Mark internal $TSFE properties as protected
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Changed Visibilities}
+
+	\begin{itemize}
+		\item The visibility of several properties and methods have been changed
+			from \texttt{public} to \texttt{protected} in classes:
+
+			\begin{itemize}
+				\smaller
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Filelist\textbackslash
+						Controller\textbackslash
+						FileListController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Frontend\textbackslash
+						Controller\textbackslash
+						TypoScriptFrontendController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Impexp\textbackslash
+						Controller\textbackslash
+						ImportExportController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Recordlist\textbackslash
+						Controller\textbackslash
+						AbstractLinkBrowserController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Recordlist\textbackslash
+						Controller\textbackslash
+						ElementBrowserController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Recordlist\textbackslash
+						Controller\textbackslash
+						RecordListController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Reports\textbackslash
+						Controller\textbackslash
+						ReportController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						RteCKEditor\textbackslash
+						Controller\textbackslash
+						BrowseLinksController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Setup\textbackslash
+						Controller\textbackslash
+						SetupModuleController}
+
+				\item \texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Taskcenter\textbackslash
+						Controller\textbackslash
+						TaskModuleController}
+
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86207 - Protected tstemplate extension
+% #86210 - Protected info extension
+
+\begin{frame}[fragile]
+	\frametitle{Deprecated/Removed Functions}
+	\framesubtitle{Preparations for TYPO3 v10}
+
+	\begin{itemize}
+		\item In preparation for a refactoring of module \textbf{Web → Template}
+		 	in TYPO3 v10, some classes have been updated and a number of
+			properties and methods marked deprecated.
+
+			\begin{itemize}
+				\small
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Tstemplate\textbackslash
+					Controller\textbackslash
+					*}
+			\end{itemize}
+
+		\item Same for module \textbf{Web → Info}
+
+			\begin{itemize}
+				\small
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Info\textbackslash
+					Controller\textbackslash
+					*}
+				\item \texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Linkvalidator\textbackslash
+					Report\textbackslash
+					*}
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

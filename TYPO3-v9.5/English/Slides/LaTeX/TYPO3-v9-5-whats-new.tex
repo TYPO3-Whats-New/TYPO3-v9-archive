@@ -1,0 +1,87 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.5 - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\documentclass[t]{beamer}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+
+\mode<presentation>
+{
+	\usetheme{typo3slides}
+}
+
+% global variables
+\title{TYPO3 Version 9.5 - What's New}
+\subtitle{Summary of the new features, changes and improvements}
+\author{
+	\centerline{Created by:}
+	\centerline{Michael Schams}
+}
+
+\date{\today}
+
+\begin{document}
+
+% select TYPO3 Share font
+\sharefont
+
+% ------------------------------------------------------------------------------
+% Title Page
+% ------------------------------------------------------------------------------
+
+\begingroup
+	\setbeamercolor{normal text}{fg=white,bg=typo3orange}
+	\setbeamercolor{title}{fg=white}
+	\setbeamercolor{author}{fg=white}
+	\setbeamertemplate{footline}[default]
+	\begin{frame}
+		\titlepage
+	\end{frame}
+\endgroup
+
+% ------------------------------------------------------------------------------
+% Table of Contents
+% ------------------------------------------------------------------------------
+
+\section*{TYPO3 Version 9.5 - What's New}
+\begin{frame}[fragile]
+	\frametitle
+
+	\begin{center}
+		\LARGE
+			TYPO3 Version 9.5 = TYPO3 v9 LTS
+		\normalsize
+	\end{center}
+
+	During a four weeks stabilization phase between the last intermediate
+	version 9.4 and the new major version 9.5 (also known as "TYPO3 v9 LTS"),
+	final elements of features were completed but nothing new was started.
+	\newline\newline
+	This is to make sure that the LTS release is robust, stable and can power
+	websites of all sizes and complexities, even those with thousands of pages.
+	\newline\newline
+	Please see the
+	\href{https://typo3.org/help/documentation/whats-new/}{TYPO3 v9 LTS slides}
+	for an overview of the changes in v9 LTS.
+\end{frame}
+
+% ------------------------------------------------------------------------------
+
+\include{Chapters/Introduction}
+\include{Chapters/FinalizedFeatures}
+\include{Chapters/DeprecatedRemovedFunctions}
+\include{Chapters/SourcesAndAuthors}
+
+% ------------------------------------------------------------------------------
+
+%\include{Chapters/TestChapter}
+
+% ------------------------------------------------------------------------------
+\end{document}

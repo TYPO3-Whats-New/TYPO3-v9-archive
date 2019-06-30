@@ -1,0 +1,191 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.5 - What's New (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		https://typo3.org/help/documentation/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+
+\section{Finalized Features}
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Finalized Features}}\end{center}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #80398 - utf8mb4 on mysql by default for new instances
+
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\framesubtitle{\texttt{utf8mb4} on MySQL}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item New TYPO3 instances use \texttt{utf8mb4} on MySQL by default now
+		\item This allows 4 byte unicode characters such as emojis
+		\item Basic settings to use \texttt{utf8mb4} in file \texttt{LocalConfiguration.php}:
+
+\begin{lstlisting}
+'DB' => [
+  'Connections' => [
+    'Default' => [
+      'driver' => 'mysqli',
+      ...
+      'charset' => 'utf8mb4',
+      'tableoptions' => [
+        'charset' => 'utf8mb4',
+        'collate' => 'utf8mb4_unicode_ci',
+      ],
+    ],
+  ],
+],
+\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\framesubtitle{Search Engine Optimization (SEO)}
+
+	\small
+		The following SEO features have been added since TYPO3 version 9.3:
+	\normalsize
+
+	\begin{itemize}
+		\item New
+			\href{https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/PageTitleApi/Index.html}{Page Title API}
+			allows integrators and developers to influence
+			what exactly is shown as the page title
+		\item TYPO3 can generate
+			\href{https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/XmlSitemap/Index.html}{XML Sitemaps}
+			now, with the capability to render different sitemaps per site and
+			language
+		\item Canonical links to pages are automatically added to prevent
+			ranking penalties due to duplicate content for example
+		\item In multi-language TYPO3 sites, \texttt{hreflang}-tags are added
+			automatically
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86214 - Implement static routes
+
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\framesubtitle{Static Routes}
+
+	\begin{itemize}
+		\item Static routes can be configured on a per site basis
+		\item This allows integrators to have different \texttt{robots.txt}
+			files for each site in a multi-site installation for example
+		\item Routes can be configured as top level files or as path
+		\item Configuration is possible in TYPO3 backend or directly in YAML
+		\item Two options are currently supported:
+			\begin{itemize}
+				\item deliver static text
+				\item resolve a TYPO3 URL
+			\end{itemize}
+		\item Resolving of static routes is implemented as a PSR-15 middleware
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #85829 - Implement symfony expression language for TypoScript conditions
+% #86068 - Deprecate old condition syntax
+
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\framesubtitle{Symfony ExpressionLanguage}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item The \href{https://symfony.com/doc/current/components/expression_language/syntax.html}{Symfony ExpressionLanguage}
+			component has been implemented for TypoScript conditions (frontend
+			and backend)
+		\item Some examples:
+
+\begin{lstlisting}
+[page["uid"] in 18..45]
+# This condition matches, if current page uid is between 18 and 45
+[END]
+
+[not ("foo" matches "/bar/")]
+# This condition matches, if "foo" does not match the regular expression '/bar/'
+[END]
+
+[request.getNormalizedParams().getHttpHost() == 'example.com']
+# This condition matches, if current hostname is 'example.com'
+[END]
+\end{lstlisting}
+
+		\item Using old condition syntax triggers a deprecation message
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #82363 - Make Extbase translation handling consistent with TypoScript
+
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\framesubtitle{Extbase Translation Handling}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\footnotesize\ttfamily}
+
+	\begin{itemize}
+		\item Extbase now renders translated records the same way as TypoScript
+			does
+		\item The new behaviour is controlled by the feature switch:
+
+\begin{lstlisting}
+config.tx_extbase.features.consistentTranslationOverlayHandling
+  = 1
+\end{lstlisting}
+
+		\item The new behaviour is the default in v9 LTS (the feature switch
+			will be removed in v10)
+		\item Learn more about how to query data using Extbase in the
+			\href{https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/core/Documentation/Changelog/9.5/Important-82363-MakeExtBaseTranslationHandlingConsistentWithTyposcript.rst}{TYPO3 documentation}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% #86422 - TypoScript getText property site
+
+\begin{frame}[fragile]
+	\frametitle{Finalized Features}
+	\framesubtitle{Site Configuration in TypoScript}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\smaller\ttfamily}
+
+	Site configuration can be accessed via \texttt{getText} property in
+	TypoScript:
+
+\begin{lstlisting}
+page.10 = TEXT
+page.10.data = site:base
+page.10.wrap = The base URL is: |
+
+page.20 = TEXT
+page.20.data = site:customConfigKey.nested.value
+page.20.wrap = The nested value is: |
+\end{lstlisting}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
