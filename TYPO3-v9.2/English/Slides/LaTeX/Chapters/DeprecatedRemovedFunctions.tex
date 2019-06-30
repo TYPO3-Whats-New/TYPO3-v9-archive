@@ -1,0 +1,292 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.2 - What's New - Chapter "Deprecated Functions" (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		3f842373-9262b8d3-f9c8de76-cf29ce17
+% LTXE-CHAPTER-NAME:	Deprecated Functions
+% ------------------------------------------------------------------------------
+
+\section{Veraltete/Entfernte Funktionen}
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+
+	\begin{center}\huge{Kapitel 4:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Veraltete/Entfernte Funktionen}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		Removed Classes of Language Extension
+% LTXE-SLIDE-REFERENCE:	Breaking-84131-RemovedClassesOfLanguageExtension
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{\texttt{EXT:lang}: Entfernte Klassen }
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	Das Sprachpaket-Update-Modul(früher "Admin-Tools → Sprache")
+	wurde in "Maintenance → Manage language packs" verschoben.
+	\newline\newline
+	Daher wurden die folgenden alten PHP-Klassen entfernt:
+
+	\begin{columns}[T]
+		\begin{column}{.5\textwidth}
+			\begin{lstlisting}
+				TYPO3\CMS\Lang\Command\LanguageUpdateCommand
+				TYPO3\CMS\Lang\Controller\LanguageController
+				TYPO3\CMS\Lang\Domain\Model\Extension
+				TYPO3\CMS\Lang\Domain\Model\Language
+				TYPO3\CMS\Lang\Domain\Repository\ExtensionRepository
+				TYPO3\CMS\Lang\Domain\Repository\LanguageRepository
+				TYPO3\CMS\Lang\Exception
+				TYPO3\CMS\Lang\Exception\Language
+				TYPO3\CMS\Lang\Exception\Ter
+				TYPO3\CMS\Lang\Exception\XmlParser
+			\end{lstlisting}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\begin{lstlisting}
+				TYPO3\CMS\Lang\Service\RegistryService
+				TYPO3\CMS\Lang\Service\TerService
+				TYPO3\CMS\Lang\Service\TranslationService
+				TYPO3\CMS\Lang\View\AbstractJsonView
+				TYPO3\CMS\Lang\View\Language\ActivateLanguageJson
+				TYPO3\CMS\Lang\View\Language\DeactivateLanguageJson
+				TYPO3\CMS\Lang\View\Language\GetTranslationsJson
+				TYPO3\CMS\Lang\View\Language\RemoveLanguageJson
+				TYPO3\CMS\Lang\View\Language\UpdateLanguageJson
+				TYPO3\CMS\Lang\View\Language\UpdateTranslationJson
+			\end{lstlisting}
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		Page Not Found and Error Handling in Frontend
+% LTXE-SLIDE-REFERENCE:	Deprecation-83883-PageNotFoundAndErrorHandlingInFrontend
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Seite nicht gefunden und Fehlerbehandlung}
+
+	\begin{itemize}
+		\item Folgende Methoden wurden als veraltet markiert:\newline
+			\smaller
+				\texttt{TYPO3\textbackslash
+					CMS\textbackslash
+					Frontend\textbackslash
+					Controller\textbackslash
+					TypoScriptFrontendController}
+			\normalsize
+
+			\begin{itemize}
+				\item \texttt{->pageUnavailableAndExit()}
+				\item \texttt{->pageNotFoundAndExit()}
+				\item \texttt{->checkPageUnavailableHandler()}
+				\item \texttt{->pageUnavailableHandler()}
+				\item \texttt{->pageNotFoundHandler()}
+				\item \texttt{->pageErrorHandler()}
+			\end{itemize}
+
+		\item Der neue \texttt{ErrorController} mit seinen benutzerdefinierten Aktionen
+			\texttt{unavailableAction()}, \texttt{pageNotFoundAction()} und
+			\texttt{accessDeniedAction()} sollte stattdessen verwendet werden
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		Admin Panel Refactoring
+% LTXE-SLIDE-REFERENCE:	Deprecation-84045-AdminPanelHookDeprecated
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Admin Panel Refactoring}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Im Rahmen des Refactorings für das Admin Panel wurde der folgende Hook
+			als veraltet markiert:
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_adminpanel.php']['extendAdminPanel']
+			\end{lstlisting}
+
+		\item Die folgende entsprechende Schnittstelle wurde als veraltet markiert:
+			\begin{lstlisting}
+				\TYPO3\CMS\Frontend\View\AdminPanelViewHookInterface
+			\end{lstlisting}
+
+		\item Folgende Funktionen der Hauptklasse \texttt{AdminPanelView}
+			wurden als veraltet markiert:
+
+	\end{itemize}
+
+	\vspace{-0.2cm}
+
+	\begin{columns}[T]
+		\begin{column}{.1\textwidth}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\begin{lstlisting}
+				getAdminPanelHeaderData
+				isAdminModuleEnabled
+				saveConfigOptions
+				extGetFeAdminValue
+				forcePreview
+			\end{lstlisting}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\begin{lstlisting}
+				isAdminModuleOpen
+				extGetHead
+				linkSectionHeader
+				extGetItem
+			\end{lstlisting}
+		\end{column}
+		\begin{column}{.1\textwidth}
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		Miscellaneous (1)
+% LTXE-SLIDE-REFERENCE:	Breaking-84148-RequireJSModuleForLanguageHandlingRemoved
+% LTXE-SLIDE-REFERENCE:	Breaking-84055-MigrateSys_notesAwayFromExtbase
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Sonstiges (1)}
+
+	\begin{itemize}
+		\item Seit dem Entfernen von ExtJS wurden JavaScrip-Dateien, die die Übersetzung von Labels
+			in Backend behandeln, überflüssig und wurden entfernt
+		\item Systemerweiterung \texttt{sys\_note} verwendet Extbase nicht mehr
+
+			\begin{itemize}
+				\item Folgendes Modell wurde entfernt:
+					\texttt{TYPO3\textbackslash
+					CMS\textbackslash
+						SysNote\textbackslash
+						Domain\textbackslash
+						Model\textbackslash
+						SysNote}
+
+				\item Folgendes Repository gibt jetzt ein klares Ergebnis zurück:
+					\texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						SysNote\textbackslash
+						Domain\textbackslash
+						Repository\textbackslash
+						SysNoteRepository}
+
+			\end{itemize}
+
+		\item StringFrontend Frontend Cache wurde als veraltet markiert
+
+		\item Icons von \texttt{EXT:form} sind jetzt mit einem neuen Identifier Präfix verfügbar\newline
+			\small
+				(vorher: \texttt{t3-form-icon-}, seit TYPO3 v9.2: \texttt{form-})
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		Miscellaneous (2)
+% LTXE-SLIDE-REFERENCE:	Breaking-84131-RemovedClassesOfLanguageExtension
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+	\framesubtitle{Sonstiges (2)}
+
+	\begin{itemize}
+		\item Klasse \texttt{TYPO3\textbackslash
+			CMS\textbackslash
+			Frontend\textbackslash
+			Http\textbackslash
+			EidRequestHandler}\newline
+			wurde als veraltet markiert
+
+		\item Klasse \texttt{TYPO3\textbackslash
+			CMS\textbackslash
+			Backend\textbackslash
+			Http\textbackslash
+			AjaxRequestHandler}\newline
+			wurde als veraltet markiert
+
+ 		\item Die Methode \texttt{TYPO3\textbackslash
+ 			CMS\textbackslash
+ 			Filelist\textbackslash
+ 			FileFacade::getIcon}\newline
+ 			wurde als veraltet markiert
+
+		\item Die folgenden TypoScript-Attribute wurden als veraltet markiert:
+
+		\begin{itemize}
+			\item \texttt{page.javascriptLibs}
+			\item \texttt{page.javascriptLibs.jQuery}
+		\end{itemize}
+
+		\item Die Verwendung von \texttt{top.launchView()}, das bestimmte Informationen in einem 
+			Popup-Fenster öffnet, wurde als veraltet markiert
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		09656e4a-69eb4c46-e38f0664-b3e8a384
+% LTXE-SLIDE-TITLE:		More functions...
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Veraltete/Entfernte Funktionen}
+
+	\vspace{0.6cm}
+	\begin{center}
+		Viele weitere Funktionen
+	\end{center}
+	\vspace{-0.8cm}
+	\begin{center}
+		wurden in TYPO3 Version 9.2
+	\end{center}
+	\vspace{-0.8cm}
+	\begin{center}
+		als veraltet markiert oder entfernt.
+	\end{center}
+	\vspace{-0.6cm}
+	\begin{center}
+		Bitte die \href{https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/9.2/Index.html#deprecation}{TYPO3 Documentation} prüfen für weitere Informationen.
+	\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

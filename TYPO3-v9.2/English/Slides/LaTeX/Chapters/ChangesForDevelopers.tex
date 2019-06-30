@@ -1,0 +1,434 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.2 - What's New - Chapter "Changes for Developers" (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		846d40ce-66fdc2ec-750dcf95-33ce93e0
+% LTXE-CHAPTER-NAME:	Changes for Developers
+% ------------------------------------------------------------------------------
+
+\section{Änderungen für Entwickler}
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+
+	\begin{center}\huge{Kapitel 3:}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Änderungen für Entwickler}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		PSR-15 Middlewares Support (1)
+% LTXE-SLIDE-REFERENCE:	Feature-83725-SupportForPSR-15HTTPMiddlewares.html
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{PSR-15 Middlewares Unterstützung (1)}
+
+	\begin{itemize}
+		\item TYPO3 möchte den \href{https://www.php-fig.org/psr/psr-15/}{PSR-15 standard} out-of-the box
+			unterstützen
+		\item Dies wird die Interoperabilität mit unabhängigen Bibliotheken verbessern und alle 
+			Anfragen im TYPO3-Kern werden eine PSR-7-Reaktion zurückgeben
+
+		\item Die PSR-15 Standard wird folgenderweise definiert:
+			\newline
+			\smaller
+				\textit{[PSR-15] describes common interfaces for HTTP server request handlers
+				(request handlers) and HTTP server middleware components (middleware) that use
+				HTTP messages [...]. HTTP request handlers are a fundamental part of any web
+				application. Server side code receives a request message, processes it, and
+				produces a response message. HTTP middleware is a way to move common request
+				and response processing away from the application layer."}
+				\newline
+				Siehe \url{https://www.php-fig.org/psr/psr-15/} für weitere Informationen.
+			\normalsize
+
+	\end{itemize}
+
+	% Note for translators: do not translate the PSR-15 definition above.
+	% It is a quote from the php-fig.org website and should remain as it stands.
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		PSR-15 Middlewares Support (2)
+% LTXE-SLIDE-REFERENCE:	Feature-83725-SupportForPSR-15HTTPMiddlewares.html
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{PSR-15 Middlewares Unterstützung (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Um eine Middleware zu der "\textit{frontend}" oder "\textit{backend}"
+			Middleware-Stack hinzuzufügen, muss eine \texttt{Configuration/RequestMiddlewares.php}
+			Datei in der jeweiligen Extension erstellt werden:
+
+			\begin{lstlisting}
+				return [
+				  // stack name: currently 'frontend' or 'backend'
+				  'frontend' => [
+				    'middleware-identifier' => [
+				      'target' => \ACME\Ext\Middleware::class,
+				      'description' => '',
+				      'before' => [
+				        'another-middleware-identifier',
+				      ],
+				      'after' => [
+				        'yet-another-middleware-identifier',
+				      ],
+				    ]
+				  ]
+				];
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		PSR-15 Middlewares Support (3)
+% LTXE-SLIDE-REFERENCE:	Feature-83725-SupportForPSR-15HTTPMiddlewares.html
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{PSR-15 Middlewares Unterstützung (3)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+
+		\item Wenn Erweiterungen stillgelegt werden müssen oder vorhandene Middlewares durch eine eigene Lösung ersetzt werden 
+			müssen, die vorhandene Middleware kann deaktiviert werden, indem man in der Datei
+			folgenden Code hinzufügt:
+
+			\begin{lstlisting}
+				return [
+				  'frontend' => [
+				    'middleware-identifier' => [
+				      'disabled' => true,
+				    ],
+				  ],
+				];
+			\end{lstlisting}
+
+		\item Lesen Sie mehr über \href{https://new.typo3.org/community/teams/typo3-development/initiatives/initiative-psr-15/}{PSR-15 Initiative} 
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		Extended PSR-7 Requests with TYPO3 Normalized Server Parameters
+% LTXE-SLIDE-REFERENCE:	Feature-83736-ExtendedPSR-7RequestsWithTYPO3ServerParameters
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{PSR-7 Serveranforderungen}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+
+		\item PSR-7-basierte ServerRequest-Objekte enthalten ein TYPO3-spezifisches 
+			Attributobjekt für normalisierte Serverparameter
+		\item Das Objekt ist \textbf{momentan} als Attribut des 
+			\texttt{ServerRequestInterface \$request} Objekte verfügbar.
+
+			\begin{lstlisting}
+				/** @var NormalizedParams $normalizedParams */
+				$normalizedParams = $request->getAttribute('normalizedParams');
+				$requestPort = $normalizedParams->getRequestPort();
+			\end{lstlisting}
+
+		\item Dies ersetzt \texttt{GeneralUtility::getIndpEnv()} und Behauptungen
+			wie zum Beispiel \texttt{SCRIPT\_NAME}, \texttt{REQUEST\_URI}, usw können ersetzt werden
+			\newline
+			(siehe \href{https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/9.2/Feature-83736-ExtendedPSR-7RequestsWithTYPO3ServerParameters.html}{Dokumentation} für mehrere Informationen)
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		PSR-7 and PSR-15 Related Changes
+% LTXE-SLIDE-REFERENCE:	Important-83724-APIAndBehaviorChangeInRequestHandlerClasses
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Änderungen die zur PSR-7 and PSR-15 gehören}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die internen Request-Handler-Klassen wurden geändert:
+
+		\begin{itemize}
+			\item Alle Methoden haben strenge Argumente und Rückgabetypdeklarationen erhalten
+			\item Anstatt \texttt{HttpUtility::redirect()},\newline
+				ein \texttt{RedirectResponse} wird zurückgegeben
+			\item Anstatt Null wird eine NullResponse zurückgegeben
+		\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		Environment Class
+% LTXE-SLIDE-REFERENCE:	Feature-84153-IntroduceAGenericEnvironmentClass
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Enwironment-Klasse}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Die neue Basis-API-Klasse stellt anwendungsübergreifende Informationen zu Pfaden
+			und PHP-internals, auf die bisher über PHP Konstanten zugegriffen werden konnte:
+				\small
+					\texttt{TYPO3\textbackslash
+						CMS\textbackslash
+						Core\textbackslash
+						Core\textbackslash
+						Environment}
+				\normalsize
+
+		\item Die folgenden statischen API-Methoden sind verfügbar:
+
+			\begin{itemize}
+				\smaller
+				\item \texttt{Environment::isCli()}
+					% defines whether TYPO3 runs on a CLI context or HTTP context
+				\item \texttt{Environment::getApplicationContext()}
+					% returns the ApplicationContext object that encapsulates TYPO3_CONTEXT
+				\item \texttt{Environment::isComposerMode()}
+					% defines whether TYPO3 was installed via composer
+				\item \texttt{Environment::getProjectPath()}
+					% returns the absolute path to the root-level folder without the trailing slash
+				\item \texttt{Environment::getPublicPath()}
+					% returns the absolute path to the publically accessible folder (previously known as PATH_site) without the trailing slash
+				\item \texttt{Environment::getVarPath()}
+					% returns the absolute path to the folder where non-public semi-persistent files can be stored. For regular projects, this is known as PATH_site/typo3temp/var
+				\item \texttt{Environment::getConfigPath()}
+					% returns the absolute path to the folder where (writeable) configuration is stored. For regular projects, this is known as PATH_site/typo3conf
+				\item \texttt{Environment::getCurrentScript()}
+					% the absolute path and filename to the currently executed PHP script
+				\item \texttt{Environment::isWindows()}
+					% whether TYPO3 runs on a windows server
+				\item \texttt{Environment::isUnix()}
+					% whether TYPO3 runs on a unix server
+			\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		Add recursive filtering of arrays
+% LTXE-SLIDE-REFERENCE:	83350-AddRecursiveArrayFiltering
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{String Constraints suchen}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Ein neuer Hook ermöglicht die Änderung von Suchtechnischen Einschränkungen:
+
+			\begin{lstlisting}
+				// EXT:my_site/ext_localconf.php
+				$dbRecordList = \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class;
+				$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$dbRecordList]['makeSearchStringConstraints'][123] =
+				  \MyVendor\MySite\Hooks\DatabaseRecordListHook::class . '->makeSearchStringConstraints';
+			\end{lstlisting}
+
+			\begin{lstlisting}
+				// EXT:my_site/Classes/Hooks/DatabaseRecordListHook.php
+				namespace MyVendor\MySite\Hooks;
+				class DatabaseRecordListHook
+				{
+				  public function makeSearchStringConstraints(
+				    \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder
+				    array $constraints,
+				    string $searchString,
+				    string $table,
+				    int $currentPid,
+				  ) {
+				    return $constraints;
+				  }
+				}
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		Signal/Slot for User Switch
+% LTXE-SLIDE-REFERENCE:	Feature-80263-AddANewSignalSlotForUserSwitch
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Signal/Slot für User Switch}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Ein neues Signal wird ausgegeben, wenn ein Admin-Benutzer im TYPO3-Backend zu einem
+			anderen Benutzer wechselt
+
+			\begin{lstlisting}
+				$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+				  \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+				);
+
+				$dispatcher->connect(
+				  \TYPO3\CMS\Beuser\Controller\BackendUserController::class,
+				  'switchUser',
+				  \MyVendor\MyExtension\Slots\BackendUserController::class,
+				  'switchUser'
+				);
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		ViewHelper Changes (1)
+% LTXE-SLIDE-REFERENCE:	Feature-82704-AddReadonlyAndRequiredAttributesToTextareaViewHelper
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{ViewHelper Änderungen (1)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item ViewHelper \texttt{f:form.textarea} unterstützt zwei neue Attribute\newline
+			 "\texttt{readonly}" and "\texttt{required}"
+
+			\begin{lstlisting}
+				<!-- Set required attribute -->
+				<f:form.textarea name="foobar" required="1" />
+
+				<!-- Set readonly attribute -->
+				<f:form.textarea name="foobar" readonly="1" />
+			\end{lstlisting}
+
+		\item ViewHelpers \texttt{f:uri.typolink} und \texttt{f:uri.typolink} unterstützen das neue
+			Attribut "\texttt{absolute}"
+
+			\begin{lstlisting}
+				<f:link.typolink parameter="23" absolute="true">Link</f:link.typolink>
+				<f:uri.typolink parameter="23" absolute="true" />
+			\end{lstlisting}
+
+		\item ViewHelper \texttt{f:render} unterstützt das neue Attribut "\texttt{debug}"
+			das ermöglicht die Debug-Ausgabe in einigen Spezielfällen zu deaktivieren
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		ViewHelper Changes (2)
+% LTXE-SLIDE-REFERENCE:	Feature-83942-ProvideViewHelperToRenderIconForResources
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{ViewHelper Änderungen (2)}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Der neue ViewHelper gibt das Icon-Markup wieder basierend auf einer FAL-Resource
+
+%			\begin{lstlisting}
+%				<core:iconForResource resource="{file}" />
+%			\end{lstlisting}
+
+			\smaller
+				\texttt{<core:iconForResource resource="\{file\}" />}
+			\normalsize
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		c7b4f7f2-a11e6fc7-4ffe6e04-92cc98aa
+% LTXE-SLIDE-TITLE:		Admin Panel Customization
+% LTXE-SLIDE-REFERENCE:	Feature-84045-NewAdminPanelModuleAPI
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile,label=AdminPanelCustomization]
+	\frametitle{Änderungen für Entwickler}
+	\framesubtitle{Admin Panel Anpassung}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Das Admin Panel kann durch benutzerdefinierte Module erweitert werden:
+		\item Modulregistrierungsbeispiel:
+
+			\begin{lstlisting}
+				$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['adminpanel']['modules']['yourmodulename'] = [
+				  'module' => \MyVendor\Package\AdminPanel\YourModule::class,
+				  'after' => ['preview']
+				]
+			\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------

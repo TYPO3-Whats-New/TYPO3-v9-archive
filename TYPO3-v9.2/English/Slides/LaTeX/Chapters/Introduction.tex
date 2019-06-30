@@ -1,0 +1,200 @@
+% ------------------------------------------------------------------------------
+% TYPO3 Version 9.2 - What's New - Chapter "Introduction" (English Version)
+%
+% @author	Michael Schams <schams.net>
+% @license	Creative Commons BY-NC-SA 3.0
+% @link		http://typo3.org/download/release-notes/whats-new/
+% @language	English
+% ------------------------------------------------------------------------------
+% LTXE-CHAPTER-UID:		7fdf26cc-362160ab-d6c8b905-19722b20
+% LTXE-CHAPTER-NAME:	Introduction
+% ------------------------------------------------------------------------------
+
+\section{Einführung}
+\begin{frame}[fragile]
+	\frametitle{Einführung}
+
+	\begin{center}\huge{Einführung}\end{center}
+	\begin{center}\huge{\color{typo3darkgrey}\textbf{Fakten}}\end{center}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		3214e510-8ceda314-7689e14c-2d422661
+% LTXE-SLIDE-TITLE:		TYPO3 Version 9.2 - The Facts
+% ------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	\frametitle{Einführung}
+	\framesubtitle{TYPO3 Version 9.2 - Fakten}
+
+	\begin{itemize}
+		\item Veröffentlichungsdatum: 10. April 2018
+		\item Releasetyp: Sprint Release
+	\end{itemize}
+
+	\begin{figure}
+		\includegraphics[width=0.95\linewidth]{Introduction/typo3-v92-banner.jpg}
+	\end{figure}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		9919ea87-1d45cce7-36a77e6a-ca0598c2
+% LTXE-SLIDE-TITLE:		System Requirements
+% ------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	\frametitle{Einführung}
+	\framesubtitle{Systemvoraussetzungen}
+
+	\begin{itemize}
+		\item PHP Version 7.2\newline
+			\smaller
+				(wird möglicherweise für zukünftige Versionen auf PHP 7.1 oder 7.0 herabgesetzt)
+			\normalsize
+
+		\item PHP Einstellungen:
+
+			\begin{itemize}
+				\item \texttt{memory\_limit} >= 128M
+				\item \texttt{max\_execution\_time} >= 240s
+				\item \texttt{max\_input\_vars} >= 1500
+				\item compilation option \texttt{-}\texttt{-disable-ipv6} must \underline{not} be used
+			\end{itemize}
+
+		\item Die meisten von \textbf{Doctrine DBAL} unterstützten Datenbankserver arbeiten auch mit TYPO3.
+			Getestete DB-Engines sind zum Beispiel:
+	\end{itemize}
+
+	\begin{figure}
+		\includegraphics[width=0.70\linewidth]{Introduction/logo-databases.png}
+	\end{figure}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		35a15406-7f01d16c-e43a8668-7294e2be
+% LTXE-SLIDE-TITLE:		Development, Release and Maintenance Timeline
+% ------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	\frametitle{Einführung}
+	\framesubtitle{Entwicklung, Veröffentlichung und Instandhaltung}
+
+	\textbf{TYPO3 v9}
+
+	\begin{figure}
+		\includegraphics[width=1\linewidth]{Introduction/typo3-v9-lifecycle.png}
+	\end{figure}
+
+	\textbf{Erweiterte Unterstützung}\newline
+	\smaller
+		Die \href{https://typo3.com}{TYPO3 GmbH} bietet weitere Supportmöglichkeiten
+		für TYPO3 v9 LTS auch nach dem 31. October 2021 für bis zu zwei weitere Jahre.
+	\normalsize
+
+%	\url{https://typo3.com/our-services/extended-support/}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		0b847921-4c7fdd13-d90d4a71-f6b1ea3a
+% LTXE-SLIDE-TITLE:		TYPO3 v9 Roadmap
+% ------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	\frametitle{Einführung}
+	\framesubtitle{TYPO3 v9 Roadmap}
+
+	Voraussichtliche Veröffentlichungen und deren Hauptfokus:
+
+	\begin{itemize}
+
+		\item v9.0 \tabto{1.1cm}12/Dec/2017\tabto{3.4cm}Install Tool and Page Tree Refactoring,\newline
+			\tabto{3.4cm}Vereinheitlichte Seitenübersetzungen
+		\item v9.1 \tabto{1.1cm}30/Jan/2018\tabto{3.4cm}Redirect Handling
+		\item
+			\begingroup
+				\color{typo3orange}
+					v9.2 \tabto{1.1cm}10/Apr/2018\tabto{3.4cm}Site Configuration
+			\endgroup
+		\item v9.3 \tabto{1.1cm}12/Jun/2018\tabto{3.4cm}URL Routing 
+		\item v9.4 \tabto{1.1cm}04/Sep/2018\tabto{3.4cm}Frontend Editing (Feature Freeze)
+		\item v9.5 \tabto{1.1cm}02/Oct/2018\tabto{3.4cm}LTS Release
+
+	\end{itemize}
+
+	\smaller
+		\url{https://typo3.org/news/article/typo3-v9-roadmap/}\newline
+		\url{https://typo3.org/typo3-cms/roadmap/}
+	\normalsize
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		f1dbd9af-b7f82720-a1ae1511-544f2f94
+% LTXE-SLIDE-TITLE:		Installation
+% ------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	\frametitle{Einführung}
+	\framesubtitle{Installation}
+
+	\begin{itemize}
+		\item Empfohlene \textit{klassische} Installierungsschritte unter Linux/Mac OS X\newline
+			(DocumentRoot ist beispielsweise \texttt{/var/www/site/htdocs}):
+		\begin{lstlisting}
+			$ cd /var/www/site
+			$ wget --content-disposition get.typo3.org/9.2
+			$ tar xzf typo3_src-9.2.0.tar.gz
+			$ cd htdocs
+			$ ln -s ../typo3_src-9.2.0 typo3_src
+			$ ln -s typo3_src/index.php
+			$ ln -s typo3_src/typo3
+			$ touch FIRST_INSTALL
+		\end{lstlisting}
+
+		\item Symbolische Links unter Microsoft Windows:
+
+			\begin{itemize}
+				\item unter Windows XP/2000 kann \texttt{junction} benutzt werden
+				\item unter Windows Vista und Windows 7 oder höher kann \texttt{mklink} benutzt werden
+			\end{itemize}
+
+	\end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+% LTXE-SLIDE-START
+% LTXE-SLIDE-UID:		a449e2cb-a0dd249f-277f3fe1-97c0e3fb
+% LTXE-SLIDE-TITLE:		Installation using composer
+% ------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	\frametitle{Installation}
+	\framesubtitle{Installation mit \texttt{composer}}
+
+	% decrease font size for code listing
+	\lstset{basicstyle=\tiny\ttfamily}
+
+	\begin{itemize}
+		\item Installation mit \textit{composer} unter Linux/Mac OS X:
+
+			\begin{lstlisting}
+				$ cd /var/www/site/
+				$ composer create-project typo3/cms-base-distribution CmsBaseDistribution ^9
+			\end{lstlisting}
+
+		\item Alternativ kann man eine benutzerdefinierte \texttt{composer.json} Datei erstellen und ausführen:
+
+			\begin{lstlisting}
+				$ composer install
+			\end{lstlisting}
+
+			Weitere \texttt{composer.json} Beispielsdateien können unter \href{https://composer.typo3.org}{https://composer.typo3.org} heruntergeladen werden
+			\normalsize
+
+	\end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------------------------
